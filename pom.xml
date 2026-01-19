@@ -49,6 +49,11 @@
 			<scope>test</scope>
 		</dependency>
 
+        <dependency>
+            <groupId>com.google.cloud.sql</groupId>
+            <artifactId>postgres-socket-factory</artifactId> <version>1.15.1</version>
+        </dependency>
+
         <!-- Source: https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
         <dependency>
             <groupId>org.springdoc</groupId>

@@ -27,12 +27,24 @@ public class PessoaServiceImpl implements IPessoaService {
 
     @Override
     public Optional<Pessoa> findById(Integer id) {
+
         return pessoaRepository.findById(id);
     }
 
     @Override
     public Pessoa addPessoa(Pessoa pessoa) {
-            return pessoaRepository.save(pessoa);
+        //Validação dos dados
+        String cpf = limparCpf(pessoa.getCpf());
+        pessoa.setCpf(cpf);
+
+        if(cpf == null || cpf.length() != 11){
+            throw new IllegalArgumentException("CPF inválido");
+        }
+        if(pessoaRepository.existsByCpf(cpf)){
+            throw new IllegalArgumentException("CPF já cadastrado");
+        }
+
+        return pessoaRepository.save(pessoa);
     }
 
     @Override
@@ -42,6 +54,13 @@ public class PessoaServiceImpl implements IPessoaService {
 
     @Override
     public Pessoa save(Pessoa dadosAtualizados) {
+
         return pessoaRepository.save(dadosAtualizados);
+    }
+
+    private String limparCpf(String cpf) {
+        if (cpf == null) return null;
+        // A expressão "\\D" significa "tudo que NÃO for Dígito"
+        return cpf.replaceAll("\\D", "");
     }
 }

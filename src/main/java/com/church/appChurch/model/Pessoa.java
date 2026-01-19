@@ -28,7 +28,9 @@ public class Pessoa {
     private String ministerio;
     @Column(nullable = false)
     private String status;
-
+    @Column(nullable = false, unique = true)
+    private String cpf;
+    
     public Pessoa() {
         super();
     }
@@ -89,4 +91,11 @@ public class Pessoa {
         this.status = status;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 }
