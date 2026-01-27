@@ -1,5 +1,6 @@
 package com.church.appChurch.model;
 
+import com.church.appChurch.dto.PessoaRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
@@ -33,6 +34,16 @@ public class Pessoa {
     
     public Pessoa() {
         super();
+    }
+
+    public Pessoa(PessoaRequestDTO dto) {
+        this.nome = dto.nome();
+        this.dataNascimento = dto.dataNascimento();
+        this.telefone = dto.telefone();
+        this.email = dto.email();
+        this.ministerio = dto.ministerio();
+        this.status = dto.status();
+        this.cpf = dto.cpf();
     }
 
     public int getId() {

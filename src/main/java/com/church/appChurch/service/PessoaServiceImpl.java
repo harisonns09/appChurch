@@ -1,5 +1,7 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.dto.PessoaRequestDTO;
+import com.church.appChurch.dto.PessoaResponseDTO;
 import com.church.appChurch.model.Pessoa;
 import com.church.appChurch.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,31 +13,37 @@ import java.util.Optional;
 @Service
 public class PessoaServiceImpl implements IPessoaService {
 
+    private final PessoaRepository pessoaRepository;
+
     @Autowired
-    private PessoaRepository pessoaRepository;
+    public PessoaServiceImpl(PessoaRepository pessoaRepository) {
+        this.pessoaRepository = pessoaRepository;
+    }
 
     @Override
-    public List<Pessoa> findAll() {
-        return pessoaRepository.findAll();
+    public List<PessoaResponseDTO> findAll() {
+
+        return pessoaRepository.findAll().stream()
+                .map(PessoaResponseDTO::new)
+                .toList();
     }
 
 
     @Override
-    public List<Pessoa> findByNome(String nome) {
-        return pessoaRepository.findByNome(nome);
+    public List<PessoaResponseDTO> findByNome(String nome) {
+
+        return pessoaRepository.findByNome(nome).stream().map(PessoaResponseDTO::new).toList();
     }
 
     @Override
-    public Optional<Pessoa> findById(Integer id) {
+    public Optional<PessoaResponseDTO> findById(Integer id) {
 
-        return pessoaRepository.findById(id);
+        return pessoaRepository.findById(id).map(PessoaResponseDTO::new);
     }
 
     @Override
-    public Pessoa addPessoa(Pessoa pessoa) {
-        //Validação dos dados
-        String cpf = limparCpf(pessoa.getCpf());
-        pessoa.setCpf(cpf);
+    public PessoaResponseDTO addPessoa(PessoaRequestDTO dto) {
+        String cpf = limparCpf(dto.cpf());
 
         if(cpf == null || cpf.length() != 11){
             throw new IllegalArgumentException("CPF inválido");
@@ -44,7 +52,10 @@ public class PessoaServiceImpl implements IPessoaService {
             throw new IllegalArgumentException("CPF já cadastrado");
         }
 
-        return pessoaRepository.save(pessoa);
+        Pessoa newPessoa = new Pessoa(dto);
+        newPessoa.setCpf(cpf);
+
+        return new PessoaResponseDTO(pessoaRepository.save(newPessoa));
     }
 
     @Override
@@ -53,14 +64,22 @@ public class PessoaServiceImpl implements IPessoaService {
     }
 
     @Override
-    public Pessoa save(Pessoa dadosAtualizados) {
+    public PessoaResponseDTO update(Integer id, PessoaRequestDTO dto) {
+        Pessoa pessoa = pessoaRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada"));
 
-        return pessoaRepository.save(dadosAtualizados);
+        pessoa.setNome(dto.nome());
+        pessoa.setDataNascimento(dto.dataNascimento());
+        pessoa.setTelefone(dto.telefone());
+        pessoa.setEmail(dto.email());
+        pessoa.setMinisterio(dto.ministerio());
+        pessoa.setStatus(dto.status());
+
+        return new PessoaResponseDTO(pessoaRepository.save(pessoa));
     }
 
     private String limparCpf(String cpf) {
         if (cpf == null) return null;
-        // A expressão "\\D" significa "tudo que NÃO for Dígito"
         return cpf.replaceAll("\\D", "");
     }
 }

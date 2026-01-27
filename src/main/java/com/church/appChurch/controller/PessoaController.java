@@ -1,7 +1,10 @@
 package com.church.appChurch.controller;
 
+import com.church.appChurch.dto.PessoaRequestDTO;
+import com.church.appChurch.dto.PessoaResponseDTO;
 import com.church.appChurch.model.Pessoa;
 import com.church.appChurch.service.IPessoaService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,24 +21,20 @@ public class PessoaController {
     private IPessoaService pessoaService;
 
     @GetMapping("/membros")
-    public List<Pessoa> getMembros() {
+    public List<PessoaResponseDTO> getMembros() {
         return pessoaService.findAll();
     }
 
     @GetMapping("/membro/{id}")
-    public ResponseEntity<Pessoa> caregarPessoa(@PathVariable Integer id) {
+    public ResponseEntity<PessoaResponseDTO> caregarPessoa(@PathVariable Integer id) {
         return pessoaService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/membros")
-    public ResponseEntity<?> addPessoa(@RequestBody Pessoa pessoa) {
-        try {
-            return ResponseEntity.ok(pessoaService.addPessoa(pessoa));
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<?> addPessoa(@RequestBody @Valid PessoaRequestDTO pessoa) {
+        return ResponseEntity.ok(pessoaService.addPessoa(pessoa));
     }
 
     @DeleteMapping("/membro/{id}")
@@ -45,9 +44,7 @@ public class PessoaController {
     }
 
     @PutMapping("/membro/{id}")
-    public ResponseEntity<Pessoa> updatePessoa(@PathVariable Integer id, @RequestBody Pessoa dadosAtualizados) {
-        dadosAtualizados.setId(id);
-        Pessoa salvo = pessoaService.save(dadosAtualizados);
-        return ResponseEntity.ok(salvo);
+    public ResponseEntity<PessoaResponseDTO> updatePessoa(@PathVariable Integer id, @RequestBody @Valid PessoaRequestDTO dto) {
+        return ResponseEntity.ok(pessoaService.update(id, dto));
     }
 }
