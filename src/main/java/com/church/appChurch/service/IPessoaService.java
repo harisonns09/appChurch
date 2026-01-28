@@ -1,8 +1,7 @@
 package com.church.appChurch.service;
 
-import com.church.appChurch.dto.PessoaRequestDTO;
-import com.church.appChurch.dto.PessoaResponseDTO;
-import com.church.appChurch.model.Pessoa;
+import com.church.appChurch.model.dto.PessoaRequestDTO;
+import com.church.appChurch.model.dto.PessoaResponseDTO;
 
 import java.util.List;
 import java.util.Optional;

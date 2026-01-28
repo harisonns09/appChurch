@@ -1,12 +1,10 @@
 package com.church.appChurch.controller;
 
-import com.church.appChurch.dto.PessoaRequestDTO;
-import com.church.appChurch.dto.PessoaResponseDTO;
-import com.church.appChurch.model.Pessoa;
+import com.church.appChurch.model.dto.PessoaRequestDTO;
+import com.church.appChurch.model.dto.PessoaResponseDTO;
 import com.church.appChurch.service.IPessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

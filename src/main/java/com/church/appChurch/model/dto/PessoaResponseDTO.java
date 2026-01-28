@@ -1,4 +1,4 @@
-package com.church.appChurch.dto;
+package com.church.appChurch.model.dto;
 
 import com.church.appChurch.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonFormat;

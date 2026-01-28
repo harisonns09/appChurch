@@ -1,6 +1,6 @@
 package com.church.appChurch.model;
 
-import com.church.appChurch.dto.PessoaRequestDTO;
+import com.church.appChurch.model.dto.PessoaRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 

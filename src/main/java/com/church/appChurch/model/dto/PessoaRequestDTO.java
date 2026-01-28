@@ -1,4 +1,4 @@
-package com.church.appChurch.dto;
+package com.church.appChurch.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
