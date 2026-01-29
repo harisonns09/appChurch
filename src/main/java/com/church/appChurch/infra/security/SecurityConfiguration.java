@@ -34,9 +34,30 @@ public class SecurityConfiguration {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
+                        // --- ÁREA PÚBLICA (VISITANTES) ---
+                        // Autenticação
+                        .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
+
+                        // Eventos: Qualquer um pode VER e se INSCREVER
+                        .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/evento/*/inscricao-publica").permitAll()
+
+                        // Ministérios: Necessário para carregar filtros públicos
+                        .requestMatchers(HttpMethod.GET, "/api/ministerios/**").permitAll()
+
+                        // Swagger (Opcional)
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+
+                        // --- ÁREA RESTRITA (ADMIN/MEMBROS) ---
+                        // Qualquer alteração (Criar, Editar, Excluir) exige login
+                        .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/eventos/**").authenticated()
+
+                        // Gestão de Membros é totalmente restrita
+                        .requestMatchers("/api/membros/**").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
