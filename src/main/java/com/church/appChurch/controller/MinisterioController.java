@@ -1,7 +1,10 @@
 package com.church.appChurch.controller;
 
-import com.church.appChurch.model.Ministerios;
+import com.church.appChurch.model.Ministerio;
+import com.church.appChurch.model.dto.MinisterioRequestDTO;
+import com.church.appChurch.model.dto.MinisterioResponseDTO;
 import com.church.appChurch.service.IMinisterioService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +21,19 @@ public class MinisterioController {
     private IMinisterioService ministerioService;
 
     @GetMapping("/ministerios")
-    public List<Ministerios> getMinisterios() {
+    public List<MinisterioResponseDTO> getMinisterios() {
         return ministerioService.findAll();
     }
 
     @GetMapping("/ministerio/{id}")
-    public ResponseEntity<Ministerios> carregarMinisterio(@PathVariable Long id) {
+    public ResponseEntity<Ministerio> carregarMinisterio(@PathVariable Long id) {
         return ministerioService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/ministerios")
-    public ResponseEntity<?> addMinisterio(@RequestBody Ministerios ministerio) {
+    public ResponseEntity<?> addMinisterio(@RequestBody @Valid MinisterioRequestDTO ministerio) {
         try {
             return ResponseEntity.ok(ministerioService.addMinisterio(ministerio));
         } catch (Exception e) {
@@ -45,9 +48,9 @@ public class MinisterioController {
     }
 
     @PutMapping("/ministerio/{id}")
-    public ResponseEntity<Ministerios> updateMinisterio(@PathVariable Long id, @RequestBody Ministerios dadosAtualizados) {
+    public ResponseEntity<Ministerio> updateMinisterio(@PathVariable Long id, @RequestBody Ministerio dadosAtualizados) {
         dadosAtualizados.setId(id);
-        Ministerios salvo = ministerioService.save(dadosAtualizados);
+        Ministerio salvo = ministerioService.save(dadosAtualizados);
         return ResponseEntity.ok(salvo);
     }
 }

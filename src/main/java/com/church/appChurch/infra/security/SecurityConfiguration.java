@@ -41,7 +41,7 @@ public class SecurityConfiguration {
                         // Eventos: Qualquer um pode VER e se INSCREVER
                         .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/evento/*/inscricao-publica").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/evento/*/inscricao").permitAll()
 
                         // Ministérios: Necessário para carregar filtros públicos
                         .requestMatchers(HttpMethod.GET, "/api/ministerios/**").permitAll()
@@ -52,8 +52,8 @@ public class SecurityConfiguration {
                         // --- ÁREA RESTRITA (ADMIN/MEMBROS) ---
                         // Qualquer alteração (Criar, Editar, Excluir) exige login
                         .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/api/eventos/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/evento/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/evento/**").authenticated()
 
                         // Gestão de Membros é totalmente restrita
                         .requestMatchers("/api/membros/**").authenticated()
@@ -78,7 +78,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Permite o frontend (ajuste se necessário, "*" libera tudo para desenvolvimento)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500", "http://127.0.0.1:5500", "http://localhost:8080", "https://harisonns09.github.io"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500", "http://localhost:3000", "http://localhost:8080", "https://harisonns09.github.io"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

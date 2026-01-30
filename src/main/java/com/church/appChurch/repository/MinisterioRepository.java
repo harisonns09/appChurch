@@ -1,17 +1,17 @@
 package com.church.appChurch.repository;
 
-import com.church.appChurch.model.Ministerios;
+import com.church.appChurch.model.Ministerio;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface MinisterioRepository extends ListCrudRepository<Ministerios, Long> {
+public interface MinisterioRepository extends ListCrudRepository<Ministerio, Long> {
 
-    public Ministerios save(Ministerios ministerio);
+    public Ministerio save(Ministerio ministerio);
 
-    public List<Ministerios> findByNome(String nome);
+    public List<Ministerio> findByNome(String nome);
 
-    public Optional<Ministerios> findById(Long id);
+    public Optional<Ministerio> findById(Long id);
 }

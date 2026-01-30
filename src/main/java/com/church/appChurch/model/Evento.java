@@ -2,9 +2,11 @@ package com.church.appChurch.model;
 
 import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,8 +30,9 @@ public class Evento {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "lista_pessoas")
-    private List<String> listaPessoasInscritas;
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // IMPORTANTE: Evita loop infinito (Evento -> Inscricao -> Evento...) ao converter para JSON
+    private List<Inscricao> inscricoes = new ArrayList<>();
 
     public Evento() {
         super();
@@ -40,7 +43,7 @@ public class Evento {
         this.dataEvento = dto.dataEvento();
         this.ministerioResponsavel = dto.ministerioResponsavel();
         this.descricao = dto.descricao();
-        this.listaPessoasInscritas = dto.listaPessoasInscritas();
+
     }
 
     public Long getId() {
@@ -83,11 +86,11 @@ public class Evento {
         this.descricao = descricao;
     }
 
-    public List<String> getListaPessoasInscritas() {
-        return listaPessoasInscritas;
+    public List<Inscricao> getInscricoes() {
+        return inscricoes;
     }
 
-    public void setListaPessoasInscritas(List<String> listaPessoasInscritas) {
-        this.listaPessoasInscritas = listaPessoasInscritas;
+    public void setInscricoes(List<Inscricao> inscricoes) {
+        this.inscricoes = inscricoes;
     }
 }

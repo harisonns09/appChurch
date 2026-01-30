@@ -1,11 +1,14 @@
 package com.church.appChurch.model.dto;
 
 import com.church.appChurch.model.Evento;
+import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public record EventoResponseDTO(
         Long id,
@@ -14,7 +17,7 @@ public record EventoResponseDTO(
         LocalDate dataEvento,
         String descricao,
         String ministerioResponsavel,
-        List<String> listaPessoasInscritas
+        List<InscritoResumoDTO> inscricoes
 ) {
 
     public EventoResponseDTO(Evento evento) {
@@ -23,7 +26,11 @@ public record EventoResponseDTO(
                 evento.getDataEvento(),
                 evento.getDescricao(),
                 evento.getMinisterioResponsavel(),
-                evento.getListaPessoasInscritas()
+                evento.getInscricoes() != null ?
+                        evento.getInscricoes().stream()
+                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone())) // ou inscricao -> inscricao.getNome()
+                                .toList()
+                        : Collections.emptyList()
         );
     }
 

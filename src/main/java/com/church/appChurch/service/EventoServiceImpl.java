@@ -1,15 +1,18 @@
 package com.church.appChurch.service;
 
 import com.church.appChurch.model.Evento;
-import com.church.appChurch.model.Ministerios;
+import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.church.appChurch.model.dto.EventoResponseDTO;
-import com.church.appChurch.model.dto.PessoaRequestDTO;
+import com.church.appChurch.model.dto.InscricaoRequestDTO;
+import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.church.appChurch.repository.EventoRepository;
-import com.church.appChurch.repository.MinisterioRepository;
+import com.church.appChurch.repository.InscricaoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,9 @@ public class EventoServiceImpl implements IEventoService {
 
     @Autowired
     private EventoRepository eventoRepository;
+
+    @Autowired
+    private InscricaoRepository inscricaoRepository;
 
     @Override
     public List<EventoResponseDTO> findAll() {
@@ -40,6 +46,10 @@ public class EventoServiceImpl implements IEventoService {
 
     @Override
     public void deleteById(int id) {
+        List<Inscricao> inscricoes = inscricaoRepository.findbyEventoId(id);
+        for (Inscricao inscricao : inscricoes) {
+            inscricaoRepository.delete(inscricao);
+        }
         eventoRepository.deleteById(id);
     }
 
@@ -54,4 +64,23 @@ public class EventoServiceImpl implements IEventoService {
 
         return new EventoResponseDTO(eventoRepository.save(evento));
     }
+
+    @Override
+    @Transactional
+    public InscricaoResponseDTO realizarInscricao(int eventoId, InscricaoRequestDTO dto) {
+        Evento evento = eventoRepository.findById(eventoId)
+                .orElseThrow(()-> new RuntimeException("Evento não encontrado"));
+
+
+        Inscricao newInscricao = new Inscricao(dto, evento);
+
+        newInscricao = inscricaoRepository.save(newInscricao);
+
+        String dataHoje = newInscricao.getDataInscricao().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        newInscricao.setNumeroInscricao(dataHoje + eventoId + newInscricao.getId());
+
+        return new InscricaoResponseDTO(inscricaoRepository.save(newInscricao));
+    }
+
+
 }

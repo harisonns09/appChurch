@@ -1,10 +1,8 @@
 package com.church.appChurch.controller;
 
-import com.church.appChurch.model.Evento;
 import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.church.appChurch.model.dto.EventoResponseDTO;
-import com.church.appChurch.model.dto.PessoaResponseDTO;
-import com.church.appChurch.service.IEventoService;
+import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.service.IEventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +25,7 @@ public class EventoController {
     }
 
     @GetMapping("/evento/{id}")
-    public ResponseEntity<EventoResponseDTO> caregarEvento(@PathVariable Integer id) {
+    public ResponseEntity<EventoResponseDTO> carregarEvento(@PathVariable Integer id) {
         return eventoService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
@@ -47,5 +45,15 @@ public class EventoController {
     @PutMapping("/evento/{id}")
     public ResponseEntity<EventoResponseDTO> updateEvento(@PathVariable Integer id, @RequestBody @Valid EventoRequestDTO dto) {
         return ResponseEntity.ok(eventoService.update(id, dto));
+    }
+
+    @PostMapping("/evento/{id}/inscricao")
+    public ResponseEntity<?> realizarInscricao(@PathVariable int id, @RequestBody @Valid InscricaoRequestDTO dto) {
+        try{
+            return ResponseEntity.ok(eventoService.realizarInscricao(id, dto));
+
+        }catch (RuntimeException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
