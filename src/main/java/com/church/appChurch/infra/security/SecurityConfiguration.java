@@ -78,7 +78,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Permite o frontend (ajuste se necessário, "*" libera tudo para desenvolvimento)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500", "http://localhost:3000", "http://localhost:8080", "https://harisonns09.github.io"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500", "http://localhost:3000", "http://localhost:8080", "https://app-igreja-nine.vercel.app/"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
