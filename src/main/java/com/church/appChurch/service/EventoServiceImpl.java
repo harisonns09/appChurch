@@ -60,6 +60,11 @@ public class EventoServiceImpl implements IEventoService {
         evento.setNomeEvento(dto.nomeEvento());
         evento.setDataEvento(dto.dataEvento());
         evento.setDescricao(dto.descricao());
+        // Atualizando novos campos
+        evento.setHorario(dto.horario());
+        evento.setLocal(dto.local());
+        evento.setPreco(dto.preco());
+
         evento.setMinisterioResponsavel(dto.ministerioResponsavel());
 
         return new EventoResponseDTO(eventoRepository.save(evento));

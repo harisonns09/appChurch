@@ -5,7 +5,9 @@ import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,6 +17,10 @@ public record EventoResponseDTO(
         String nomeEvento,
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dataEvento,
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime horario,
+        String local,
+        BigDecimal preco,
         String descricao,
         String ministerioResponsavel,
         List<InscritoResumoDTO> inscricoes
@@ -24,11 +30,14 @@ public record EventoResponseDTO(
         this(evento.getId(),
                 evento.getNomeEvento(),
                 evento.getDataEvento(),
+                evento.getHorario(),
+                evento.getLocal(),
+                evento.getPreco(),
                 evento.getDescricao(),
                 evento.getMinisterioResponsavel(),
                 evento.getInscricoes() != null ?
                         evento.getInscricoes().stream()
-                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone())) // ou inscricao -> inscricao.getNome()
+                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone()))
                                 .toList()
                         : Collections.emptyList()
         );

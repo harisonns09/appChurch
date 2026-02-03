@@ -1,0 +1,26 @@
+package com.church.appChurch.model.dto;
+
+import com.church.appChurch.model.Igreja;
+
+public record IgrejaResponseDTO(
+
+        Long id,
+        String name,
+        String instagram,
+        String address,
+        String city,
+        String state
+
+) {
+
+    public IgrejaResponseDTO(Igreja igreja){
+        this(
+                igreja.getId(),
+                igreja.getName(),
+                igreja.getInstagram(),
+                igreja.getAddress(),
+                igreja.getCity(),
+                igreja.getState()
+        );
+    }
+}

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +36,16 @@ public class Evento {
     @JsonIgnore // IMPORTANTE: Evita loop infinito (Evento -> Inscricao -> Evento...) ao converter para JSON
     private List<Inscricao> inscricoes = new ArrayList<>();
 
+    @Column(name = "horario")
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime horario;
+
+    @Column(name = "local_evento")
+    private String local;
+
+    @Column(name = "preco")
+    private BigDecimal preco;
+
     public Evento() {
         super();
     }
@@ -43,6 +55,10 @@ public class Evento {
         this.dataEvento = dto.dataEvento();
         this.ministerioResponsavel = dto.ministerioResponsavel();
         this.descricao = dto.descricao();
+        this.horario = dto.horario();
+        this.local = dto.local();
+        this.preco = dto.preco();
+
 
     }
 
@@ -92,5 +108,29 @@ public class Evento {
 
     public void setInscricoes(List<Inscricao> inscricoes) {
         this.inscricoes = inscricoes;
+    }
+
+    public LocalTime getHorario() {
+        return horario;
+    }
+
+    public void setHorario(LocalTime horario) {
+        this.horario = horario;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
     }
 }

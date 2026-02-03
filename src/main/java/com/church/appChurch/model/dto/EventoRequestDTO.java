@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public record EventoRequestDTO(
@@ -18,7 +20,14 @@ public record EventoRequestDTO(
 
         String descricao,
 
-        String ministerioResponsavel
+        String ministerioResponsavel,
+
+        @JsonFormat(pattern = "HH:mm")
+        LocalTime horario,
+
+        String local,
+
+        BigDecimal preco
 
 
 ){
