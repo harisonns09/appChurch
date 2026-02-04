@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface IMinisterioService {
 
-    public List<MinisterioResponseDTO> findAll();
+    public List<MinisterioResponseDTO> findAllByIgreja(Long igrejaId);
     public Optional<Ministerio> findById(Long id);
     public MinisterioResponseDTO addMinisterio(MinisterioRequestDTO ministerio);
     public void deleteById(Long id);

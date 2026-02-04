@@ -18,30 +18,30 @@ public class PessoaController {
     @Autowired
     private IPessoaService pessoaService;
 
-    @GetMapping("/membros")
-    public List<PessoaResponseDTO> getMembros() {
-        return pessoaService.findAll();
+    @GetMapping("/igrejas/{igrejaId}/membros")
+    public List<PessoaResponseDTO> getMembros(@PathVariable Long igrejaId) {
+        return pessoaService.findAllByIgrejaId(igrejaId);
     }
 
-    @GetMapping("/membro/{id}")
+    @GetMapping("/igrejas/{igrejaId}/membros/{id}")
     public ResponseEntity<PessoaResponseDTO> caregarPessoa(@PathVariable Integer id) {
         return pessoaService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/membros")
+    @PostMapping("/igrejas/{igrejaId}/membros")
     public ResponseEntity<?> addPessoa(@RequestBody @Valid PessoaRequestDTO pessoa) {
         return ResponseEntity.ok(pessoaService.addPessoa(pessoa));
     }
 
-    @DeleteMapping("/membro/{id}")
+    @DeleteMapping("/igrejas/{igrejaId}/membros/{id}")
     public ResponseEntity<Void> deletePessoa(@PathVariable int id) {
         pessoaService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/membro/{id}")
+    @PutMapping("/igrejas/{igrejaId}/membros/{id}")
     public ResponseEntity<PessoaResponseDTO> updatePessoa(@PathVariable Integer id, @RequestBody @Valid PessoaRequestDTO dto) {
         return ResponseEntity.ok(pessoaService.update(id, dto));
     }

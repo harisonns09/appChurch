@@ -18,9 +18,9 @@ public class MinisterioServiceImpl implements IMinisterioService {
 
 
     @Override
-    public List<MinisterioResponseDTO> findAll() {
+    public List<MinisterioResponseDTO> findAllByIgreja(Long igrejaId) {
 
-        return ministerioRepository.findAll().stream()
+        return ministerioRepository.findAllByIgreja(igrejaId).stream()
                 .map(ministerio -> new MinisterioResponseDTO(ministerio))
                 .toList();
     }

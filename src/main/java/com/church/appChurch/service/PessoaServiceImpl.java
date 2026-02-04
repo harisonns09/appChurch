@@ -21,9 +21,9 @@ public class PessoaServiceImpl implements IPessoaService {
     }
 
     @Override
-    public List<PessoaResponseDTO> findAll() {
+    public List<PessoaResponseDTO> findAllByIgrejaId(Long igrejaID) {
 
-        return pessoaRepository.findAll().stream()
+        return pessoaRepository.findAllByIgrejaId(igrejaID).stream()
                 .map(pessoa -> new PessoaResponseDTO(pessoa))
                 .toList();
     }

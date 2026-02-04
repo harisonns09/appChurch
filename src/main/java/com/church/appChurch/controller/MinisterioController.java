@@ -20,19 +20,19 @@ public class MinisterioController {
     @Autowired
     private IMinisterioService ministerioService;
 
-    @GetMapping("/ministerios")
-    public List<MinisterioResponseDTO> getMinisterios() {
-        return ministerioService.findAll();
+    @GetMapping("/igreja/{igrejaId}/ministerios")
+    public List<MinisterioResponseDTO> getMinisterios(@PathVariable Long igrejaId) {
+        return ministerioService.findAllByIgreja(igrejaId);
     }
 
-    @GetMapping("/ministerio/{id}")
+    @GetMapping("/igreja/{igrejaId}/ministerio/{id}")
     public ResponseEntity<Ministerio> carregarMinisterio(@PathVariable Long id) {
         return ministerioService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/ministerios")
+    @PostMapping("/igreja/{igrejaId}/ministerios")
     public ResponseEntity<?> addMinisterio(@RequestBody @Valid MinisterioRequestDTO ministerio) {
         try {
             return ResponseEntity.ok(ministerioService.addMinisterio(ministerio));
@@ -41,13 +41,13 @@ public class MinisterioController {
         }
     }
 
-    @DeleteMapping("/ministerio/{id}")
+    @DeleteMapping("/igreja/{igrejaId}/ministerio/{id}")
     public ResponseEntity<Void> deleteMinisterio(@PathVariable Long id) {
         ministerioService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/ministerio/{id}")
+    @PutMapping("/igreja/{igrejaId}/ministerio/{id}")
     public ResponseEntity<Ministerio> updateMinisterio(@PathVariable Long id, @RequestBody Ministerio dadosAtualizados) {
         dadosAtualizados.setId(id);
         Ministerio salvo = ministerioService.save(dadosAtualizados);

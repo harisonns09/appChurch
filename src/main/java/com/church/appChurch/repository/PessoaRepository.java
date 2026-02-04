@@ -13,7 +13,7 @@ public interface PessoaRepository extends ListCrudRepository<Pessoa, Integer> {
 
     public List<Pessoa> findByNome(String nome);
 
-    public Optional<Pessoa> findById(Integer id);
+    public Optional<Pessoa> findAllByIgrejaId(Long igrejaId);
 
     // O Spring cria o SQL sozinho com esse nome
     boolean existsByCpf(String cpf);
