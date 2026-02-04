@@ -1,7 +1,11 @@
 package com.church.appChurch.model;
 
 import com.church.appChurch.model.dto.IgrejaRequestDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_igreja")
@@ -21,6 +25,18 @@ public class Igreja {
     private String city;
     @Column(nullable = false)
     private String state;
+
+    @OneToMany(mappedBy = "igreja", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Evita que ao carregar a igreja, carregue todos os membros infinitamente
+    private List<Pessoa> membros = new ArrayList<>();
+
+    @OneToMany(mappedBy = "igreja", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Evento> eventos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "igreja", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Ministerio> ministerios = new ArrayList<>();
 
     public Igreja() {
         super();
@@ -81,4 +97,8 @@ public class Igreja {
     public void setState(String state) {
         this.state = state;
     }
+
+    public List<Pessoa> getMembros() { return membros; }
+    public List<Evento> getEventos() { return eventos; }
+    public List<Ministerio> getMinisterios() { return ministerios; }
 }

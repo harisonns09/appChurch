@@ -16,6 +16,10 @@ public class Ministerio {
     @Column(name = "lider_Responsavel", nullable = false)
     private String liderResponsavel;
 
+    @ManyToOne
+    @JoinColumn(name = "igreja_id", nullable = false)
+    private Igreja igreja;
+
     public Ministerio() {
     }
 
@@ -47,5 +51,13 @@ public class Ministerio {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Igreja getIgreja ( ) {
+        return igreja;
+    }
+
+    public void setIgreja ( Igreja igreja ) {
+        this.igreja = igreja;
     }
 }

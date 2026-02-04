@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
                         // Eventos: Qualquer um pode VER e se INSCREVER
+                        .requestMatchers(HttpMethod.GET, "/api/igreja/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/igrejas/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()

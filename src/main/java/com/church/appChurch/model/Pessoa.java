@@ -31,6 +31,10 @@ public class Pessoa {
     private String status;
     @Column(nullable = false, unique = true)
     private String cpf;
+
+    @ManyToOne
+    @JoinColumn(name = "igreja_id", nullable = false)
+    private Igreja igreja;
     
     public Pessoa() {
         super();
@@ -108,5 +112,12 @@ public class Pessoa {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public Igreja getIgreja() {
+        return igreja;
+    }
+    public void setIgreja(Igreja igreja) {
+        this.igreja = igreja;
     }
 }

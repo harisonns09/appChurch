@@ -1,12 +1,14 @@
 package com.church.appChurch.service;
 
 import com.church.appChurch.model.Evento;
+import com.church.appChurch.model.Igreja;
 import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.church.appChurch.model.dto.EventoResponseDTO;
 import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.church.appChurch.repository.EventoRepository;
+import com.church.appChurch.repository.IgrejaRepository;
 import com.church.appChurch.repository.InscricaoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class EventoServiceImpl implements IEventoService {
     @Autowired
     private InscricaoRepository inscricaoRepository;
 
+    @Autowired
+    private IgrejaRepository igrejaRepository;
+
     @Override
     public List<EventoResponseDTO> findAll() {
         return eventoRepository.findAll().stream()
@@ -39,7 +44,10 @@ public class EventoServiceImpl implements IEventoService {
 
     @Override
     public EventoResponseDTO addEvento(EventoRequestDTO dto) {
+        Igreja igreja = igrejaRepository.findById(dto.igrejaId())
+                .orElseThrow(() -> new RuntimeException("Igreja não encontrada"));
         Evento newEvento = new Evento(dto);
+        newEvento.setIgreja(igreja);
         return new EventoResponseDTO(eventoRepository.save(newEvento));
 
     }

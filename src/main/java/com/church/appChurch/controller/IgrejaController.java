@@ -41,6 +41,12 @@ public class IgrejaController {
         return ResponseEntity.ok(igrejaService.update(id, dto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        igrejaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 
 
 }

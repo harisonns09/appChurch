@@ -46,6 +46,10 @@ public class Evento {
     @Column(name = "preco")
     private BigDecimal preco;
 
+    @ManyToOne
+    @JoinColumn(name = "igreja_id", nullable = false)
+    private Igreja igreja;
+
     public Evento() {
         super();
     }
@@ -132,5 +136,12 @@ public class Evento {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public Igreja getIgreja() {
+        return igreja;
+    }
+    public void setIgreja(Igreja igreja) {
+        this.igreja = igreja;
     }
 }

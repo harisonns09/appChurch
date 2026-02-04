@@ -19,35 +19,35 @@ public class EventoController {
     @Autowired
     private IEventoService eventoService;
 
-    @GetMapping("/eventos")
+    @GetMapping("/igreja/{id}/eventos")
     public List<EventoResponseDTO> getEventos() {
         return eventoService.findAll();
     }
 
-    @GetMapping("/evento/{id}")
+    @GetMapping("/igreja/{idIgreja}/evento/{id}")
     public ResponseEntity<EventoResponseDTO> carregarEvento(@PathVariable Integer id) {
         return eventoService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/eventos")
+    @PostMapping("/igreja/{idIgreja}/eventos")
     public ResponseEntity<?> addEvento(@RequestBody @Valid EventoRequestDTO evento) {
         return ResponseEntity.ok(eventoService.addEvento(evento));
     }
 
-    @DeleteMapping("/evento/{id}")
+    @DeleteMapping("/igreja/{idIgreja}/evento/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable int id) {
         eventoService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/evento/{id}")
+    @PutMapping("/igreja/{idIgreja}/evento/{id}")
     public ResponseEntity<EventoResponseDTO> updateEvento(@PathVariable Integer id, @RequestBody @Valid EventoRequestDTO dto) {
         return ResponseEntity.ok(eventoService.update(id, dto));
     }
 
-    @PostMapping("/evento/{id}/inscricao")
+    @PostMapping("/igreja/{idIgreja}/evento/{id}/inscricao")
     public ResponseEntity<?> realizarInscricao(@PathVariable int id, @RequestBody @Valid InscricaoRequestDTO dto) {
         try{
             return ResponseEntity.ok(eventoService.realizarInscricao(id, dto));

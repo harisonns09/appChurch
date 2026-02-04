@@ -11,6 +11,8 @@ public record MinisterioRequestDTO(
         @NotBlank(message = "O nome é obrigatório)")
         String nome,
 
+        Long igrejaId,
+
         @NotBlank(message = "Líder obrigatorio")
         String liderResponsavel
 ){

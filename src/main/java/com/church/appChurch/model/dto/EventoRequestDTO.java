@@ -14,6 +14,8 @@ public record EventoRequestDTO(
         @NotBlank(message = "O nome é obrigatório)")
         String nomeEvento,
 
+        Long igrejaId,
+
         @NotNull(message = "A data do evento é obrigatória")
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dataEvento,

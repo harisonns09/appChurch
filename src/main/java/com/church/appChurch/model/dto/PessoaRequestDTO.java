@@ -11,6 +11,8 @@ public record PessoaRequestDTO (
         @NotBlank(message = "O nome é obrigatório)")
         String nome,
 
+        Long igrejaId,
+
         @NotNull(message = "A data de nascimento é obrigatória")
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate dataNascimento,
