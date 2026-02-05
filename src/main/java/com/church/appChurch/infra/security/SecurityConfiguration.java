@@ -44,6 +44,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/inscricao").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/checkout").permitAll()
 
                         // Ministérios: Necessário para carregar filtros públicos
                         .requestMatchers(HttpMethod.GET, "/api/ministerios/**").permitAll()
@@ -80,7 +81,7 @@ public class SecurityConfiguration {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         // Permite o frontend (ajuste se necessário, "*" libera tudo para desenvolvimento)
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000", "http://localhost:8080", "https://app-igreja-nine.vercel.app/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000", "http://localhost:8080", "https://ecclesia-manager-ten.vercel.app"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

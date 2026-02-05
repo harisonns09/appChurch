@@ -7,6 +7,7 @@ import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.church.appChurch.model.dto.EventoResponseDTO;
 import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
+import com.church.appChurch.model.dto.infinitepay.InfinitePayWebhookDTO;
 import com.church.appChurch.repository.EventoRepository;
 import com.church.appChurch.repository.IgrejaRepository;
 import com.church.appChurch.repository.InscricaoRepository;
@@ -94,6 +95,41 @@ public class EventoServiceImpl implements IEventoService {
 
         return new InscricaoResponseDTO(inscricaoRepository.save(newInscricao));
     }
+
+    @Override
+    @Transactional
+    public void processarPagamentoWebhook(InfinitePayWebhookDTO payload) {
+        // 1. Verifica se o status é de sucesso
+        // A InfinitePay pode enviar "paid" ou "approved"
+        if (!"paid".equalsIgnoreCase(payload.status()) && !"approved".equalsIgnoreCase(payload.status())) {
+            // Se for "failed" ou "pending", talvez apenas logar e ignorar
+            return;
+        }
+
+        // 2. Extrai o ID da inscrição do Metadata
+        // Lembre-se: alteramos o InfinitePayMetadata para ter um campo registrationId ou numeroInscricao
+        String inscricaoIdStr = payload.metadata().numero_inscricao(); // Ou o nome do campo que você criou
+
+        if (inscricaoIdStr == null) {
+            throw new RuntimeException("Webhook recebido sem ID de Inscrição no metadata");
+        }
+
+        Long inscricaoId = Long.parseLong(inscricaoIdStr);
+
+        // 3. Busca no Banco
+        Inscricao inscricao = inscricaoRepository.findById(inscricaoId)
+                .orElseThrow(() -> new RuntimeException("Inscrição não encontrada para o ID: " + inscricaoId));
+
+        // 4. Atualiza Status (Idempotência: Só atualiza se ainda não estiver pago)
+        if (!"PAGO".equals(inscricao.getStatus())) {
+            inscricao.setStatus("PAGO");
+            inscricao.setDataPagamento(java.time.LocalDateTime.now());
+
+            inscricaoRepository.save(inscricao);
+            System.out.println("Inscrição #" + inscricaoId + " atualizada para PAGO via Webhook.");
+        }
+    }
+
 
 
 }

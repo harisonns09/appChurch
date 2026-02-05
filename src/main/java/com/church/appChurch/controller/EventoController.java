@@ -43,7 +43,7 @@ public class EventoController {
     }
 
     @PutMapping("/igrejas/{idIgreja}/eventos/{id}")
-    public ResponseEntity<EventoResponseDTO> updateEvento(@PathVariable Integer id, @RequestBody @Valid EventoRequestDTO dto) {
+    public ResponseEntity<EventoResponseDTO> updateEvento(@PathVariable Integer idIgreja,@PathVariable Integer id, @RequestBody @Valid EventoRequestDTO dto) {
         return ResponseEntity.ok(eventoService.update(id, dto));
     }
 

@@ -4,6 +4,7 @@ import com.church.appChurch.model.dto.EventoRequestDTO;
 import com.church.appChurch.model.dto.EventoResponseDTO;
 import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
+import com.church.appChurch.model.dto.infinitepay.InfinitePayWebhookDTO;
 import jakarta.validation.Valid;
 import org.jspecify.annotations.Nullable;
 
@@ -19,4 +20,6 @@ public interface IEventoService {
     public EventoResponseDTO update(Integer id,EventoRequestDTO dto);
 
     public InscricaoResponseDTO realizarInscricao(int id, @Valid InscricaoRequestDTO dto);
+
+    public void processarPagamentoWebhook(InfinitePayWebhookDTO payload);
 }

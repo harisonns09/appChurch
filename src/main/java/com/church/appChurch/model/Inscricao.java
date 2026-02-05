@@ -1,5 +1,6 @@
 package com.church.appChurch.model;
 
+import com.church.appChurch.enums.StatusPagamento;
 import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.google.api.client.util.DateTime;
@@ -22,7 +23,10 @@ public class Inscricao {
     private String email;
 
     @Column(name = "telefone", nullable = false)
-    private String telefone; // Sugestão: adicione telefone, é vital para eventos
+    private String telefone;
+
+    @Column(name = "status", nullable = false)
+    private String status;
 
     @Column(unique = true)
     private String numeroInscricao;
@@ -34,6 +38,9 @@ public class Inscricao {
     @JoinColumn(name = "evento_id", nullable = false)
     private Evento evento;
 
+    @Column(name = "data_pagamento")
+    private LocalDateTime dataPagamento;
+
     public Inscricao() {
         super();
     }
@@ -44,6 +51,7 @@ public class Inscricao {
         this.telefone = dto.telefone();
         this.dataInscricao = LocalDateTime.now();
         this.evento = evento;
+        this.status = StatusPagamento.PENDENTE.getStatusPagamento();
     }
 
     public Long getId() {
@@ -100,5 +108,21 @@ public class Inscricao {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(LocalDateTime dataPagamento) {
+        this.dataPagamento = dataPagamento;
     }
 }
