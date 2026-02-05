@@ -28,6 +28,9 @@ public class InfinitePayService {
     @Value("${infinitepay.token}")
     private String apiToken;
 
+    @Value("${infinitepay.webhook-url}")
+    private String webhookUrlConfig;
+
     public CheckoutResponseDTO createCheckoutLink(String eventId, CheckoutRequestDTO data) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -60,7 +63,13 @@ public class InfinitePayService {
         );
 
         // 5. Gera ID único do pedido
-        String orderNsu = UUID.randomUUID().toString();
+        String orderNsu = data.numeroInscricao();
+
+        if (orderNsu == null || orderNsu.isEmpty()) {
+            orderNsu = UUID.randomUUID().toString();
+        }
+
+        String webhookUrlParaEnvio = webhookUrlConfig;
 
         // 6. URL de retorno (Para onde o usuário volta após pagar)
         String returnUrl = redirectBase + "/" + eventId + "/inscricao?status=success&transactionId=" + data.numeroInscricao();
@@ -71,6 +80,7 @@ public class InfinitePayService {
                 List.of(item),
                 orderNsu,
                 returnUrl,
+                webhookUrlParaEnvio,
                 custumer,
                 metadata
         );

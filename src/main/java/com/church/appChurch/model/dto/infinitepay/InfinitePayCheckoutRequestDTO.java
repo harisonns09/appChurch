@@ -9,6 +9,7 @@ public record InfinitePayCheckoutRequestDTO(
         String order_nsu,
         // Adicionamos 'url' (ou redirect_url) para o cliente voltar ao seu site após pagar
         String redirect_url,
+        String webhook_url,
         InfinitePayCustomerDTO customer,
         InfinitePayMetadata metadata
 ) {}

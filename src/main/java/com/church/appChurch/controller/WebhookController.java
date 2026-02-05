@@ -21,7 +21,7 @@ public class WebhookController {
     @PostMapping("/infinitepay")
     public ResponseEntity<Void> handleInfinitePayWebhook(@RequestBody InfinitePayWebhookDTO payload) {
 
-        logger.info("Webhook recebido da InfinitePay. Status: {}, ID Transação: {}", payload.status(), payload.id());
+        logger.info("Webhook InfinitePay recebido. Order NSU: {}", payload.orderNsu());
 
         try {
             eventoService.processarPagamentoWebhook(payload);

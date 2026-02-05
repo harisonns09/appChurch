@@ -38,6 +38,9 @@ public class SecurityConfiguration {
                         // Autenticação
                         .requestMatchers(HttpMethod.POST, "/api/auth/**").permitAll()
 
+                        //webhooks
+                        .requestMatchers(HttpMethod.POST, "/api/webhooks/**").permitAll()
+
                         // Eventos: Qualquer um pode VER e se INSCREVER
                         .requestMatchers(HttpMethod.GET, "/api/igreja/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/igrejas/**").permitAll()

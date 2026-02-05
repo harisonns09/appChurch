@@ -28,7 +28,7 @@ public class Inscricao {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(unique = true)
+    @Column(name = "numero_inscricao", unique = true)
     private String numeroInscricao;
 
     @Column(name = "data_inscricao")

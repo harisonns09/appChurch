@@ -99,26 +99,15 @@ public class EventoServiceImpl implements IEventoService {
     @Override
     @Transactional
     public void processarPagamentoWebhook(InfinitePayWebhookDTO payload) {
-        // 1. Verifica se o status é de sucesso
-        // A InfinitePay pode enviar "paid" ou "approved"
-        if (!"paid".equalsIgnoreCase(payload.status()) && !"approved".equalsIgnoreCase(payload.status())) {
-            // Se for "failed" ou "pending", talvez apenas logar e ignorar
-            return;
-        }
 
-        // 2. Extrai o ID da inscrição do Metadata
-        // Lembre-se: alteramos o InfinitePayMetadata para ter um campo registrationId ou numeroInscricao
-        String inscricaoIdStr = payload.metadata().numero_inscricao(); // Ou o nome do campo que você criou
+        String numeroInscricao = payload.orderNsu();
 
-        if (inscricaoIdStr == null) {
+        if (numeroInscricao == null) {
             throw new RuntimeException("Webhook recebido sem ID de Inscrição no metadata");
         }
 
-        Long inscricaoId = Long.parseLong(inscricaoIdStr);
-
         // 3. Busca no Banco
-        Inscricao inscricao = inscricaoRepository.findById(inscricaoId)
-                .orElseThrow(() -> new RuntimeException("Inscrição não encontrada para o ID: " + inscricaoId));
+        Inscricao inscricao = inscricaoRepository.findbyNumero_Inscricao(numeroInscricao);
 
         // 4. Atualiza Status (Idempotência: Só atualiza se ainda não estiver pago)
         if (!"PAGO".equals(inscricao.getStatus())) {
@@ -126,7 +115,7 @@ public class EventoServiceImpl implements IEventoService {
             inscricao.setDataPagamento(java.time.LocalDateTime.now());
 
             inscricaoRepository.save(inscricao);
-            System.out.println("Inscrição #" + inscricaoId + " atualizada para PAGO via Webhook.");
+            System.out.println("Inscrição #" + numeroInscricao + " atualizada para PAGO via Webhook.");
         }
     }
 
