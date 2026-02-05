@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,14 +31,11 @@ public class InfinitePayService {
     public CheckoutResponseDTO createCheckoutLink(String eventId, CheckoutRequestDTO data) {
         RestTemplate restTemplate = new RestTemplate();
 
-        // 1. Headers
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.set("Authorization", "Bearer " + apiToken);
 
-        // 2. CORREÇÃO: Converter Valor para Centavos
-        // Multiplicar por 100, não por ele mesmo.
-        // Ex: 50.00 * 100 = 5000 centavos
+
         int priceInCents = data.amount().multiply(new java.math.BigDecimal("100")).intValue();
 
         // 3. Montar Item (Seguindo o JSON: description, quantity, price)
@@ -57,6 +53,12 @@ public class InfinitePayService {
                 data.numeroInscricao()
         );
 
+        var custumer = new InfinitePayCustomerDTO(
+                data.nome(),
+                data.email(),
+                data.telefone()
+        );
+
         // 5. Gera ID único do pedido
         String orderNsu = UUID.randomUUID().toString();
 
@@ -68,7 +70,8 @@ public class InfinitePayService {
                 handle,
                 List.of(item),
                 orderNsu,
-                returnUrl, // Campo 'url' no JSON da requisição controla o redirecionamento
+                returnUrl,
+                custumer,
                 metadata
         );
 
