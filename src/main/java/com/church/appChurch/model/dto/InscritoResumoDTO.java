@@ -8,6 +8,7 @@ public record InscritoResumoDTO (
         String telefone,
         String numero_inscricao,
         String status,
-        LocalDateTime data_inscricao
+        LocalDateTime data_inscricao,
+        String tipoPagamento
 ){
 }

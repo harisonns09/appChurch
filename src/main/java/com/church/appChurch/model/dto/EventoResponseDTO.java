@@ -37,7 +37,7 @@ public record EventoResponseDTO(
                 evento.getMinisterioResponsavel(),
                 evento.getInscricoes() != null ?
                         evento.getInscricoes().stream()
-                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone(), i.getNumeroInscricao(), i.getStatus(), i.getDataInscricao()))
+                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone(), i.getNumeroInscricao(), i.getStatus(), i.getDataInscricao(), i.getTipoPagamento()))
                                 .toList()
                         : Collections.emptyList()
         );

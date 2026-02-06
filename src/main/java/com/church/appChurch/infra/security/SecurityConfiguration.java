@@ -48,6 +48,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/inscricao").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/checkout").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/igrejas/*/eventos/*/inscricoes/*/pagamento").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/inscricoes/**").permitAll()
 
                         // Ministérios: Necessário para carregar filtros públicos
                         .requestMatchers(HttpMethod.GET, "/api/ministerios/**").permitAll()

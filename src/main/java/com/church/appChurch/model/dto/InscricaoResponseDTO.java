@@ -11,7 +11,11 @@ public record InscricaoResponseDTO(
         String telefone,
         String numeroInscricao,
         String dataInscricao,
-        Evento evento
+        Evento evento,
+        String cpf,
+        String tipo_pagamento,
+        String status
+
 ) {
 
     public InscricaoResponseDTO(Inscricao inscricao) {
@@ -21,7 +25,10 @@ public record InscricaoResponseDTO(
                 inscricao.getTelefone(),
                 inscricao.getNumeroInscricao(),
                 inscricao.getDataInscricao().toString(),
-                inscricao.getEvento()
+                inscricao.getEvento(),
+                inscricao.getCpf(),
+                inscricao.getTipoPagamento(),
+                inscricao.getStatus()
         );
 
     }

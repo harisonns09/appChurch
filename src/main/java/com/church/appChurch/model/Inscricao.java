@@ -44,6 +44,12 @@ public class Inscricao {
     @Column(name = "cpf")
     private String cpf;
 
+    @Column(name="comprovante")
+    private String comprovante;
+
+    @Column(name="tipo_pagamento")
+    private String tipoPagamento;
+
     public Inscricao() {
         super();
     }
@@ -136,5 +142,21 @@ public class Inscricao {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public String getComprovante() {
+        return comprovante;
+    }
+
+    public void setComprovante(String comprovante) {
+        this.comprovante = comprovante;
+    }
+
+    public String getTipoPagamento() {
+        return tipoPagamento;
+    }
+
+    public void setTipoPagamento(String tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
 }

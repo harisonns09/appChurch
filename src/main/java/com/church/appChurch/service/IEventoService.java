@@ -22,4 +22,6 @@ public interface IEventoService {
     public InscricaoResponseDTO realizarInscricao(int id, @Valid InscricaoRequestDTO dto);
 
     public void processarPagamentoWebhook(InfinitePayWebhookDTO payload);
+
+    public void atualizarMetodoPagamento(String idInscricao, String tipoPagamento);
 }

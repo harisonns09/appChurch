@@ -107,18 +107,36 @@ public class EventoServiceImpl implements IEventoService {
         }
 
         // 3. Busca no Banco
-        Inscricao inscricao = inscricaoRepository.findbyNumero_Inscricao(numeroInscricao);
+        Inscricao inscricao = inscricaoRepository.findByNumero_Inscricao(numeroInscricao);
 
         // 4. Atualiza Status (Idempotência: Só atualiza se ainda não estiver pago)
         if (!"PAGO".equals(inscricao.getStatus())) {
             inscricao.setStatus("PAGO");
             inscricao.setDataPagamento(java.time.LocalDateTime.now());
+            inscricao.setComprovante(payload.receiptUrl());
 
             inscricaoRepository.save(inscricao);
             System.out.println("Inscrição #" + numeroInscricao + " atualizada para PAGO via Webhook.");
         }
     }
 
+    @Override
+    @Transactional
+    public void atualizarMetodoPagamento(String idInscricao, String tipoPagamento) {
+        try {
+            Inscricao inscricao = inscricaoRepository.findByNumero_Inscricao(idInscricao);
+            if(!inscricao.getTipoPagamento().equals(tipoPagamento)) {
+                inscricao.setTipoPagamento(tipoPagamento);
+
+                inscricaoRepository.save(inscricao);
+            }
+
+        }catch (RuntimeException e){
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar pagamento: " + e.getMessage());
+        }
+
+    }
 
 
 }

@@ -20,5 +20,7 @@ public interface InscricaoRepository extends ListCrudRepository<Inscricao, Long>
     public List<Inscricao> findbyEventoId(@Param("id") int id);
 
     @Query("SELECT i FROM Inscricao i WHERE i.numeroInscricao = :numero_inscricao")
-    public Inscricao findbyNumero_Inscricao(@Param("numero_inscricao") String numero_inscricao);
+    public Inscricao findByNumero_Inscricao(@Param("numero_inscricao") String numero_inscricao);
+
+    List<Inscricao> findAllByCpf(String cpf);
 }

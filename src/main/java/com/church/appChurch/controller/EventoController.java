@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -56,4 +57,20 @@ public class EventoController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/igrejas/{idIgreja}/eventos/{idEvento}/inscricoes/{idInscricao}/pagamento")
+    public ResponseEntity<?> atualizarFormaPagamento(
+            @PathVariable String idIgreja,
+            @PathVariable Integer idEvento,
+            @PathVariable String idInscricao,
+            @RequestBody Map<String, String> payload
+    ) {
+        String formaPagamento = payload.get("formaPagamento");
+
+        eventoService.atualizarMetodoPagamento(idInscricao, formaPagamento);
+
+        return ResponseEntity.ok().build();
+    }
+
+
 }
