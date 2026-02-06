@@ -41,6 +41,9 @@ public class Inscricao {
     @Column(name = "data_pagamento")
     private LocalDateTime dataPagamento;
 
+    @Column(name = "cpf")
+    private String cpf;
+
     public Inscricao() {
         super();
     }
@@ -52,6 +55,7 @@ public class Inscricao {
         this.dataInscricao = LocalDateTime.now();
         this.evento = evento;
         this.status = StatusPagamento.PENDENTE.getStatusPagamento();
+        this.cpf = dto.cpf();
     }
 
     public Long getId() {
@@ -124,5 +128,13 @@ public class Inscricao {
 
     public void setDataPagamento(LocalDateTime dataPagamento) {
         this.dataPagamento = dataPagamento;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }

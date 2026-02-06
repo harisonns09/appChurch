@@ -12,7 +12,9 @@ public record IgrejaRequestDTO(
         @NotBlank(message = "A cidade é obrigatória")
         String city,
         @NotBlank(message = "O estado é obrigatório")
-        String state
+        String state,
+        @NotBlank(message = "O cnpj é obrigatório")
+        String cnpj
 
 ) {
 }

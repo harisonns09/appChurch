@@ -25,6 +25,8 @@ public class Igreja {
     private String city;
     @Column(nullable = false)
     private String state;
+    @Column(nullable = false)
+    private String cnpj;
 
     @OneToMany(mappedBy = "igreja", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore // Evita que ao carregar a igreja, carregue todos os membros infinitamente
@@ -48,6 +50,7 @@ public class Igreja {
         this.address = dto.address();
         this.city = dto.city();
         this.state = dto.state();
+        this.cnpj = dto.cnpj();
     }
 
     public Long getId() {
@@ -96,6 +99,14 @@ public class Igreja {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
     public List<Pessoa> getMembros() { return membros; }

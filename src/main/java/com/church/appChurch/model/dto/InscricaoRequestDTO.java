@@ -9,7 +9,8 @@ public record InscricaoRequestDTO(
 
         String nome,
         String email,
-        String telefone
+        String telefone,
+        String cpf
 
 ) {
 }

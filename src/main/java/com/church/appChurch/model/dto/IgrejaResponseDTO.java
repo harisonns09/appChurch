@@ -9,7 +9,8 @@ public record IgrejaResponseDTO(
         String instagram,
         String address,
         String city,
-        String state
+        String state,
+        String cnpj
 
 ) {
 
@@ -20,7 +21,8 @@ public record IgrejaResponseDTO(
                 igreja.getInstagram(),
                 igreja.getAddress(),
                 igreja.getCity(),
-                igreja.getState()
+                igreja.getState(),
+                igreja.getCnpj()
         );
     }
 }

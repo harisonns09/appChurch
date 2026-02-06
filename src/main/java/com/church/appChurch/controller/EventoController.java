@@ -32,12 +32,12 @@ public class EventoController {
     }
 
     @PostMapping("/igrejas/{idIgreja}/eventos")
-    public ResponseEntity<?> addEvento(@RequestBody @Valid EventoRequestDTO evento) {
+    public ResponseEntity<?> addEvento(@PathVariable Integer idIgreja, @RequestBody @Valid EventoRequestDTO evento) {
         return ResponseEntity.ok(eventoService.addEvento(evento));
     }
 
     @DeleteMapping("/igrejas/{idIgreja}/eventos/{id}")
-    public ResponseEntity<Void> deleteEvento(@PathVariable int id) {
+    public ResponseEntity<Void> deleteEvento(@PathVariable int idIgreja, @PathVariable int id) {
         eventoService.deleteById(id);
         return ResponseEntity.ok().build();
     }

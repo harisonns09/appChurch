@@ -1,8 +1,13 @@
 package com.church.appChurch.model.dto;
 
+import java.time.LocalDateTime;
+
 public record InscritoResumoDTO (
         String nome,
         String email,
-        String telefone
+        String telefone,
+        String numero_inscricao,
+        String status,
+        LocalDateTime data_inscricao
 ){
 }

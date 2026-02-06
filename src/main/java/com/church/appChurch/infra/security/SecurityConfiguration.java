@@ -57,9 +57,9 @@ public class SecurityConfiguration {
 
                         // --- ÁREA RESTRITA (ADMIN/MEMBROS) ---
                         // Qualquer alteração (Criar, Editar, Excluir) exige login
-                        .requestMatchers(HttpMethod.POST, "/api/eventos/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/api/evento/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/evento/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/igrejas/*/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/igrejas/*/eventos/**").authenticated()
 
                         // Gestão de Membros é totalmente restrita
                         .requestMatchers("/api/igrejas/*/membros/**").authenticated()
