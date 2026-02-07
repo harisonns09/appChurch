@@ -46,6 +46,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/igrejas/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/eventos/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/evento/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/eventos/*/inscricao").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/eventos/*/checkout").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/inscricao").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/checkout").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/igrejas/*/eventos/*/inscricoes/*/pagamento").permitAll()

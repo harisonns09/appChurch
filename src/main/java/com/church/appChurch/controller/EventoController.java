@@ -6,6 +6,7 @@ import com.church.appChurch.model.dto.InscricaoRequestDTO;
 import com.church.appChurch.service.IEventoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,14 +49,13 @@ public class EventoController {
         return ResponseEntity.ok(eventoService.update(id, dto));
     }
 
-    @PostMapping("/igrejas/{idIgreja}/eventos/{id}/inscricao")
+    @PostMapping("/eventos/{id}/inscricao")
     public ResponseEntity<?> realizarInscricao(@PathVariable int id, @RequestBody @Valid InscricaoRequestDTO dto) {
         try{
             return ResponseEntity.ok(eventoService.realizarInscricao(id, dto));
 
-        }catch (RuntimeException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        }catch ( RuntimeException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", e.getMessage()));        }
     }
 
     @PutMapping("/igrejas/{idIgreja}/eventos/{idEvento}/inscricoes/{idInscricao}/pagamento")

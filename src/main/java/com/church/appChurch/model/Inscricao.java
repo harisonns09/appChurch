@@ -61,6 +61,7 @@ public class Inscricao {
         this.dataInscricao = LocalDateTime.now();
         this.evento = evento;
         this.status = StatusPagamento.PENDENTE.getStatusPagamento();
+        this.tipoPagamento = "Dinheiro";
         this.cpf = dto.cpf();
     }
 

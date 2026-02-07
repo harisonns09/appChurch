@@ -20,9 +20,9 @@ public class CheckoutController {
     @Autowired
     private IEventoService eventoService;
 
-    @PostMapping("/igrejas/{churchId}/eventos/{eventId}/checkout")
+    @PostMapping("/eventos/{eventId}/checkout")
     public ResponseEntity<CheckoutResponseDTO> createCheckout(
-            @PathVariable String churchId,
+
             @PathVariable String eventId,
             @RequestBody CheckoutRequestDTO data
     ) {

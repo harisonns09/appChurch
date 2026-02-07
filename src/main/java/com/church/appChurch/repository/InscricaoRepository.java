@@ -23,4 +23,8 @@ public interface InscricaoRepository extends ListCrudRepository<Inscricao, Long>
     public Inscricao findByNumero_Inscricao(@Param("numero_inscricao") String numero_inscricao);
 
     List<Inscricao> findAllByCpf(String cpf);
+
+    Inscricao findByCpf(String cpf);
+
+    boolean existsByCpfAndEventoId(String cpf, Integer eventoId);
 }

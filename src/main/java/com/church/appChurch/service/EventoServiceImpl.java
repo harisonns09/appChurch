@@ -86,6 +86,11 @@ public class EventoServiceImpl implements IEventoService {
                 .orElseThrow(()-> new RuntimeException("Evento não encontrado"));
 
 
+        if (inscricaoRepository.existsByCpfAndEventoId(dto.cpf(), eventoId)) {
+            // Lança um erro que o Controller vai pegar e mandar pro Front
+            throw new IllegalArgumentException("Este CPF já possui uma inscrição confirmada ou pendente para este evento.");
+        }
+
         Inscricao newInscricao = new Inscricao(dto, evento);
 
         newInscricao = inscricaoRepository.save(newInscricao);
