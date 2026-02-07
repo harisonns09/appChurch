@@ -21,9 +21,9 @@ public class EventoController {
     @Autowired
     private IEventoService eventoService;
 
-    @GetMapping("/igrejas/{id}/eventos")
-    public List<EventoResponseDTO> getEventos() {
-        return eventoService.findAll();
+    @GetMapping("/igrejas/{idIgreja}/eventos")
+    public List<EventoResponseDTO> getEventos(@PathVariable Long idIgreja) {
+        return eventoService.findByIgrejaId(idIgreja);
     }
 
     @GetMapping("/eventos/{id}")

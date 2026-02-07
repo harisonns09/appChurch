@@ -32,8 +32,8 @@ public class EventoServiceImpl implements IEventoService {
     private IgrejaRepository igrejaRepository;
 
     @Override
-    public List<EventoResponseDTO> findAll() {
-        return eventoRepository.findAll().stream()
+    public List<EventoResponseDTO> findByIgrejaId(Long idIgreja) {
+        return eventoRepository.findByIgrejaId(idIgreja).stream()
                 .map(evento -> new EventoResponseDTO(evento))
                 .toList();
     }

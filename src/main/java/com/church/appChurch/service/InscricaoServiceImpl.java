@@ -1,5 +1,7 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.enums.FormaPagamento;
+import com.church.appChurch.enums.StatusPagamento;
 import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.church.appChurch.repository.InscricaoRepository;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,4 +37,21 @@ public class InscricaoServiceImpl implements IInscricaoService {
                 .map(InscricaoResponseDTO::new) // Chama o construtor do DTO para cada item
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void confirmarPagamento(String idInscricao) {
+
+        Inscricao inscricao = inscricaoRepository.findByNumero_Inscricao(idInscricao);
+
+        if (inscricao.getStatus().equals(StatusPagamento.PENDENTE.getStatusPagamento())) {
+            inscricao.setStatus(StatusPagamento.PAGO.getStatusPagamento());
+            inscricao.setDataPagamento(LocalDateTime.now());
+            inscricao.setTipoPagamento(FormaPagamento.DINHEIRO.getFormaPagamento());
+
+        }
+
+        inscricaoRepository.save(inscricao);
+    }
+
+
 }
