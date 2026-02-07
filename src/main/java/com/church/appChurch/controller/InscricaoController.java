@@ -26,4 +26,12 @@ public class InscricaoController {
 
         return ResponseEntity.ok(inscricoes);
     }
+
+    @PutMapping("/confirmarPagamento/{idEvento}/{idInscricao}")
+    public ResponseEntity<?> confirmarPagamento(@PathVariable Long idEvento, @PathVariable String idInscricao) {
+
+        inscricaoService.confirmarPagamento(idInscricao);
+
+        return ResponseEntity.ok().build();
+    }
 }

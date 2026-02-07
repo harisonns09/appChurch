@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public interface IEventoService {
 
-    public List<EventoResponseDTO> findAll();
+    public List<EventoResponseDTO> findByIgrejaId(Long idIgreja);
     public Optional<EventoResponseDTO> findById(Integer id);
     public EventoResponseDTO addEvento(EventoRequestDTO dto);
     public void deleteById(int id);

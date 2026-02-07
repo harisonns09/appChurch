@@ -15,6 +15,7 @@ public interface EventoRepository extends ListCrudRepository<Evento, Integer> {
 
     public Optional<Evento> findById(Integer id);
 
+    public List<Evento> findByIgrejaId(Long idIgreja);
 
 
 }
