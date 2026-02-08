@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IgrejaRepository extends ListCrudRepository<Igreja, Long> {
 
+    public Igreja save(Igreja igreja);
+
 }

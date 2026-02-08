@@ -8,11 +8,10 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.time.LocalDate;
 
 public record MinisterioRequestDTO(
+        Long id,
         @NotBlank(message = "O nome é obrigatório)")
         String nome,
-
         Long igrejaId,
-
         @NotBlank(message = "Líder obrigatorio")
         String liderResponsavel
 ){

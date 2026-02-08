@@ -11,9 +11,11 @@ public interface MinisterioRepository extends ListCrudRepository<Ministerio, Lon
 
     public Ministerio save(Ministerio ministerio);
 
-    public List<Ministerio> findAllByIgreja(Long igrejaId);
+    public List<Ministerio> findAllByIgrejaId(Long igrejaId);
 
     public List<Ministerio> findByNome(String nome);
 
     public Optional<Ministerio> findById(Long id);
+
+    List<Ministerio> findByIgrejaId(Long igrejaId);
 }

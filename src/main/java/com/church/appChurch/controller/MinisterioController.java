@@ -20,37 +20,36 @@ public class MinisterioController {
     @Autowired
     private IMinisterioService ministerioService;
 
-    @GetMapping("/igreja/{igrejaId}/ministerios")
+    @GetMapping("/igrejas/{igrejaId}/ministerios")
     public List<MinisterioResponseDTO> getMinisterios(@PathVariable Long igrejaId) {
         return ministerioService.findAllByIgreja(igrejaId);
     }
 
-    @GetMapping("/igreja/{igrejaId}/ministerio/{id}")
+    @GetMapping("/igrejas/{igrejaId}/ministerios/{id}")
     public ResponseEntity<Ministerio> carregarMinisterio(@PathVariable Long id) {
         return ministerioService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/igreja/{igrejaId}/ministerios")
-    public ResponseEntity<?> addMinisterio(@RequestBody @Valid MinisterioRequestDTO ministerio) {
+    @PostMapping("/igrejas/{igrejaId}/ministerios")
+    public ResponseEntity<?> addMinisterio(@PathVariable Long igrejaId, @RequestBody @Valid MinisterioRequestDTO ministerio) {
         try {
-            return ResponseEntity.ok(ministerioService.addMinisterio(ministerio));
+            return ResponseEntity.ok(ministerioService.addMinisterio(igrejaId, ministerio));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @DeleteMapping("/igreja/{igrejaId}/ministerio/{id}")
+    @DeleteMapping("/igrejas/{igrejaId}/ministerios/{id}")
     public ResponseEntity<Void> deleteMinisterio(@PathVariable Long id) {
         ministerioService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/igreja/{igrejaId}/ministerio/{id}")
-    public ResponseEntity<Ministerio> updateMinisterio(@PathVariable Long id, @RequestBody Ministerio dadosAtualizados) {
-        dadosAtualizados.setId(id);
-        Ministerio salvo = ministerioService.save(dadosAtualizados);
-        return ResponseEntity.ok(salvo);
+    @PutMapping("/igrejas/{igrejaId}/ministerios/{id}")
+    public ResponseEntity<MinisterioResponseDTO> updateMinisterio(@PathVariable Long igrejaId, @PathVariable Long id, @RequestBody MinisterioRequestDTO dto) {
+
+        return ResponseEntity.ok(ministerioService.updateMinisterio(igrejaId, id, dto));
     }
 }

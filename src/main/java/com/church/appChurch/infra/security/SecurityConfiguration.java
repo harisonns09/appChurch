@@ -52,6 +52,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/*/checkout").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/igrejas/*/eventos/*/inscricoes/*/pagamento").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/inscricoes/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/igrejas/*/ministerios/**").permitAll()
 
                         // Ministérios: Necessário para carregar filtros públicos
                         .requestMatchers(HttpMethod.GET, "/api/ministerios/**").permitAll()
@@ -64,6 +65,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/api/igrejas/*/eventos/**").authenticated()
                         .requestMatchers(HttpMethod.PUT, "/api/igrejas/*/eventos/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/igrejas/*/eventos/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/igrejas/*/ministerios/**").permitAll()
+                        .requestMatchers("/api/igrejas/*/ministerios/**").authenticated()
+
+
 
                         // Gestão de Membros é totalmente restrita
                         .requestMatchers("/api/igrejas/*/membros/**").authenticated()
