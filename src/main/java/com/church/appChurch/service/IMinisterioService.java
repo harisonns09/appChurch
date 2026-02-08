@@ -11,7 +11,7 @@ public interface IMinisterioService {
 
     public List<MinisterioResponseDTO> findAllByIgreja(Long igrejaId);
     public Optional<Ministerio> findById(Long id);
-    public MinisterioResponseDTO addMinisterio(MinisterioRequestDTO ministerio);
+    public MinisterioResponseDTO addMinisterio(Long igrejaId, MinisterioRequestDTO ministerio);
     public void deleteById(Long id);
-    public Ministerio save(Ministerio ministerio);
+    public MinisterioResponseDTO updateMinisterio(Long idIgreja, Long idMinisterio, MinisterioRequestDTO dto);
 }

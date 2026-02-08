@@ -23,9 +23,10 @@ public class Ministerio {
     public Ministerio() {
     }
 
-    public Ministerio(MinisterioRequestDTO dto) {
+    public Ministerio(MinisterioRequestDTO dto, Igreja igreja) {
         this.nome = dto.nome();
         this.liderResponsavel = dto.liderResponsavel();
+        this.igreja = igreja;
     }
 
     // Getters and Setters

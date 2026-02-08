@@ -1,5 +1,6 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.enums.StatusPagamento;
 import com.church.appChurch.model.Evento;
 import com.church.appChurch.model.Igreja;
 import com.church.appChurch.model.Inscricao;
@@ -49,8 +50,8 @@ public class EventoServiceImpl implements IEventoService {
                 .orElseThrow(() -> new RuntimeException("Igreja não encontrada"));
         Evento newEvento = new Evento(dto);
         newEvento.setIgreja(igreja);
-        return new EventoResponseDTO(eventoRepository.save(newEvento));
 
+        return new EventoResponseDTO(eventoRepository.save(newEvento));
     }
 
     @Override
@@ -94,7 +95,6 @@ public class EventoServiceImpl implements IEventoService {
         Inscricao newInscricao = new Inscricao(dto, evento);
 
         newInscricao = inscricaoRepository.save(newInscricao);
-
         String dataHoje = newInscricao.getDataInscricao().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         newInscricao.setNumeroInscricao(dataHoje + eventoId + newInscricao.getId());
 
