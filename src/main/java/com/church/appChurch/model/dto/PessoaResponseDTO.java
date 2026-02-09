@@ -1,31 +1,50 @@
 package com.church.appChurch.model.dto;
 
 import com.church.appChurch.model.Pessoa;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.time.LocalDate;
 
 public record PessoaResponseDTO(
-        Integer id,
+        Long id,
+        Long churchId,
         String nome,
-        @JsonFormat(pattern = "yyyy-MM-dd")
-        LocalDate dataNascimento,
-        String telefone,
         String email,
+        String telefone,
+        String cpf,
+        LocalDate dataNascimento,
         String ministerio,
         String status,
-        String cpf
-) {
 
+        // Novos campos
+        String genero,
+        String estadoCivil,
+        String cep,
+        String endereco,
+        String numero,
+        String bairro,
+        String cidade,
+        String estado,
+        LocalDate dataBatismo
+) {
     public PessoaResponseDTO(Pessoa pessoa) {
-        this(pessoa.getId(),
+        this(
+                pessoa.getId(),
+                pessoa.getIgreja().getId(),
                 pessoa.getNome(),
-                pessoa.getDataNascimento(),
-                pessoa.getTelefone(),
                 pessoa.getEmail(),
+                pessoa.getTelefone(),
+                pessoa.getCpf(),
+                pessoa.getDataNascimento(),
                 pessoa.getMinisterio(),
                 pessoa.getStatus(),
-                pessoa.getCpf());
+                pessoa.getGenero(),
+                pessoa.getEstadoCivil(),
+                pessoa.getCep(),
+                pessoa.getEndereco(),
+                pessoa.getNumero(),
+                pessoa.getBairro(),
+                pessoa.getCidade(),
+                pessoa.getEstado(),
+                pessoa.getDataBatismo()
+        );
     }
-
 }

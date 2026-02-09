@@ -24,7 +24,7 @@ public class PessoaController {
     }
 
     @GetMapping("/igrejas/{igrejaId}/membros/{id}")
-    public ResponseEntity<PessoaResponseDTO> caregarPessoa(@PathVariable Integer id) {
+    public ResponseEntity<PessoaResponseDTO> carregarPessoa(@PathVariable Integer id) {
         return pessoaService.findById(id)
                 .map(registro -> ResponseEntity.ok(registro))
                 .orElse(ResponseEntity.notFound().build());
@@ -44,5 +44,13 @@ public class PessoaController {
     @PutMapping("/igrejas/{igrejaId}/membros/{id}")
     public ResponseEntity<PessoaResponseDTO> updatePessoa(@PathVariable Integer id, @RequestBody @Valid PessoaRequestDTO dto) {
         return ResponseEntity.ok(pessoaService.update(id, dto));
+    }
+
+
+    // VISITANTES
+
+    @PostMapping("/igrejas/{igrejaId}/visitantes")
+    public ResponseEntity<PessoaResponseDTO> criarVisitante(@PathVariable Long igrejaId, @RequestBody @Valid PessoaRequestDTO dto) {
+        return ResponseEntity.ok(pessoaService.addPessoa(dto));
     }
 }
