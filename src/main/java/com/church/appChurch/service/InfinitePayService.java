@@ -45,7 +45,7 @@ public class InfinitePayService {
         var item = new InfinitePayItem(
                 "Inscricao - "+ data.nome(), // description
                 1,                            // quantity
-                priceInCents                  // price
+                100                  // price
         );
 
         // 4. Montar Metadata (Opcional, mas bom para controle)

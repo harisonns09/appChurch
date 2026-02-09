@@ -75,6 +75,16 @@ public class PessoaServiceImpl implements IPessoaService {
         pessoa.setMinisterio(dto.ministerio());
         pessoa.setStatus(dto.status());
 
+        pessoa.setGenero(dto.genero());
+        pessoa.setEstadoCivil(dto.estadoCivil());
+        pessoa.setCep(dto.cep());
+        pessoa.setEndereco(dto.endereco());
+        pessoa.setNumero(dto.numero());
+        pessoa.setBairro(dto.bairro());
+        pessoa.setCidade(dto.cidade());
+        pessoa.setEstado(dto.estado());
+        pessoa.setDataBatismo(dto.dataBatismo());
+
         return new PessoaResponseDTO(pessoaRepository.save(pessoa));
     }
 

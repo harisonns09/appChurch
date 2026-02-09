@@ -12,112 +12,136 @@ public class Pessoa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id; // Recomendo usar Long ao invés de int para IDs de banco
 
     @Column(name = "nome", nullable = false)
     private String nome;
 
+    // CPF pode ser opcional dependendo da regra de negócio, aqui mantive unique mas permitindo nulo se vazio
+    @Column(unique = true)
+    private String cpf;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(name="telefone", nullable = false)
+    @Column(name="telefone")
     private String telefone;
+
     @Column(nullable = false)
     private String email;
-    @Column(nullable = false)
-    private String ministerio;
+
+    private String ministerio; // Pode ser nulo se for apenas membro
+
     @Column(nullable = false)
     private String status;
-    @Column(nullable = false, unique = true)
-    private String cpf;
+
+    // --- NOVOS CAMPOS ---
+
+    @Column(length = 1)
+    private String genero; // 'M' ou 'F'
+
+    @Column(name = "estado_civil")
+    private String estadoCivil;
+
+    // Endereço
+    private String cep;
+    private String endereco;
+    private String numero;
+    private String bairro;
+    private String cidade;
+    private String estado;
+
+    // Vida Eclesiástica
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "data_batismo")
+    private LocalDate dataBatismo;
 
     @ManyToOne
     @JoinColumn(name = "igreja_id", nullable = false)
     private Igreja igreja;
-    
+
     public Pessoa() {
         super();
     }
 
     public Pessoa(PessoaRequestDTO dto) {
         this.nome = dto.nome();
+        this.cpf = dto.cpf();
         this.dataNascimento = dto.dataNascimento();
         this.telefone = dto.telefone();
         this.email = dto.email();
         this.ministerio = dto.ministerio();
         this.status = dto.status();
-        this.cpf = dto.cpf();
+        this.genero = dto.genero();
+        this.estadoCivil = dto.estadoCivil();
+        this.cep = dto.cep();
+        this.endereco = dto.endereco();
+        this.numero = dto.numero();
+        this.bairro = dto.bairro();
+        this.cidade = dto.cidade();
+        this.estado = dto.estado();
+        this.dataBatismo = dto.dataBatismo();
+        if (dto.igrejaId() != null) {
+            this.igreja = new Igreja();
+            this.igreja.setId(dto.igrejaId());
+        }
     }
 
-    public int getId() {
-        return id;
-    }
+    // --- GETTERS E SETTERS ---
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public String getNome() {
-        return nome;
-    }
+    public String getNome() { return nome; }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getCpf() { return cpf; }
+    public void setCpf(String cpf) { this.cpf = cpf; }
 
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
+    public LocalDate getDataNascimento() { return dataNascimento; }
+    public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
 
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
+    public String getTelefone() { return telefone; }
+    public void setTelefone(String telefone) { this.telefone = telefone; }
 
-    public String getTelefone() {
-        return telefone;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+    public String getMinisterio() { return ministerio; }
+    public void setMinisterio(String ministerio) { this.ministerio = ministerio; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public Igreja getIgreja() { return igreja; }
+    public void setIgreja(Igreja igreja) { this.igreja = igreja; }
 
-    public String getMinisterio() {
-        return ministerio;
-    }
+    // Novos Getters e Setters
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
 
-    public void setMinisterio(String ministerio) {
-        this.ministerio = ministerio;
-    }
+    public String getEstadoCivil() { return estadoCivil; }
+    public void setEstadoCivil(String estadoCivil) { this.estadoCivil = estadoCivil; }
 
-    public String getStatus() {
-        return status;
-    }
+    public String getCep() { return cep; }
+    public void setCep(String cep) { this.cep = cep; }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+    public String getEndereco() { return endereco; }
+    public void setEndereco(String endereco) { this.endereco = endereco; }
 
-    public String getCpf() {
-        return cpf;
-    }
+    public String getNumero() { return numero; }
+    public void setNumero(String numero) { this.numero = numero; }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+    public String getBairro() { return bairro; }
+    public void setBairro(String bairro) { this.bairro = bairro; }
 
-    public Igreja getIgreja() {
-        return igreja;
-    }
-    public void setIgreja(Igreja igreja) {
-        this.igreja = igreja;
-    }
+    public String getCidade() { return cidade; }
+    public void setCidade(String cidade) { this.cidade = cidade; }
+
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
+
+    public LocalDate getDataBatismo() { return dataBatismo; }
+    public void setDataBatismo(LocalDate dataBatismo) { this.dataBatismo = dataBatismo; }
 }
