@@ -9,7 +9,6 @@ public record PessoaRequestDTO(
 
         String email,
         String telefone,
-        String cpf,
         LocalDate dataNascimento,
 
         String ministerio,
@@ -26,5 +25,7 @@ public record PessoaRequestDTO(
         String estado,
         LocalDate dataBatismo,
 
-        Long igrejaId
+        Long igrejaId,
+
+        String observacao
 ) {}

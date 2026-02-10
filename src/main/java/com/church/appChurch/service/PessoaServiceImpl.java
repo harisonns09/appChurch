@@ -43,18 +43,15 @@ public class PessoaServiceImpl implements IPessoaService {
 
     @Override
     public PessoaResponseDTO addPessoa(PessoaRequestDTO dto) {
-        String cpf = limparCpf(dto.cpf());
 
-        if(cpf == null || cpf.length() != 11){
-            throw new IllegalArgumentException("CPF inválido");
-        }
-        if(pessoaRepository.existsByCpf(cpf)){
-            throw new IllegalArgumentException("CPF já cadastrado");
-        }
+//        if(cpf == null || cpf.length() != 11){
+//            throw new IllegalArgumentException("CPF inválido");
+//        }
+//        if(pessoaRepository.existsByCpf(cpf)){
+//            throw new IllegalArgumentException("CPF já cadastrado");
+//        }
 
         Pessoa newPessoa = new Pessoa(dto);
-        newPessoa.setCpf(cpf);
-
         return new PessoaResponseDTO(pessoaRepository.save(newPessoa));
     }
 
@@ -88,8 +85,12 @@ public class PessoaServiceImpl implements IPessoaService {
         return new PessoaResponseDTO(pessoaRepository.save(pessoa));
     }
 
-    private String limparCpf(String cpf) {
-        if (cpf == null) return null;
-        return cpf.replaceAll("\\D", "");
+    @Override
+    public List<PessoaResponseDTO> findAllVisitorsByIgrejaId(Long igrejaId) {
+        return pessoaRepository.findAllVisitantesByIgreja(igrejaId)
+                .stream()
+                .map(PessoaResponseDTO::new)
+                .toList();
     }
+
 }

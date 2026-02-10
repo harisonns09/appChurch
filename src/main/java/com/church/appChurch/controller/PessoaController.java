@@ -2,6 +2,7 @@ package com.church.appChurch.controller;
 
 import com.church.appChurch.model.dto.PessoaRequestDTO;
 import com.church.appChurch.model.dto.PessoaResponseDTO;
+import com.church.appChurch.model.dto.VisitanteRequestDTO;
 import com.church.appChurch.service.IPessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,14 @@ public class PessoaController {
     }
 
 
-    // VISITANTES
-
-    @PostMapping("/igrejas/{igrejaId}/visitantes")
-    public ResponseEntity<PessoaResponseDTO> criarVisitante(@PathVariable Long igrejaId, @RequestBody @Valid PessoaRequestDTO dto) {
+    @PostMapping("/public/visitantes")
+    public ResponseEntity<PessoaResponseDTO> cadastrarVisitante(@RequestBody PessoaRequestDTO dto) {
+        // Aqui você pode forçar o status para 'VISITANTE' se quiser garantir
         return ResponseEntity.ok(pessoaService.addPessoa(dto));
+    }
+
+    @GetMapping("/igrejas/{igrejaId}/visitantes")
+    public List<PessoaResponseDTO> getVisitantes(@PathVariable Long igrejaId) {
+        return pessoaService.findAllVisitorsByIgrejaId(igrejaId);
     }
 }

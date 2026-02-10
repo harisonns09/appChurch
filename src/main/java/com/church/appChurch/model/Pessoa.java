@@ -17,10 +17,6 @@ public class Pessoa {
     @Column(name = "nome", nullable = false)
     private String nome;
 
-    // CPF pode ser opcional dependendo da regra de negócio, aqui mantive unique mas permitindo nulo se vazio
-    @Column(unique = true)
-    private String cpf;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
@@ -52,6 +48,8 @@ public class Pessoa {
     private String cidade;
     private String estado;
 
+    private String observacao;
+
     // Vida Eclesiástica
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_batismo")
@@ -61,13 +59,13 @@ public class Pessoa {
     @JoinColumn(name = "igreja_id", nullable = false)
     private Igreja igreja;
 
+
     public Pessoa() {
         super();
     }
 
     public Pessoa(PessoaRequestDTO dto) {
         this.nome = dto.nome();
-        this.cpf = dto.cpf();
         this.dataNascimento = dto.dataNascimento();
         this.telefone = dto.telefone();
         this.email = dto.email();
@@ -95,9 +93,6 @@ public class Pessoa {
 
     public String getNome() { return nome; }
     public void setNome(String nome) { this.nome = nome; }
-
-    public String getCpf() { return cpf; }
-    public void setCpf(String cpf) { this.cpf = cpf; }
 
     public LocalDate getDataNascimento() { return dataNascimento; }
     public void setDataNascimento(LocalDate dataNascimento) { this.dataNascimento = dataNascimento; }
@@ -144,4 +139,8 @@ public class Pessoa {
 
     public LocalDate getDataBatismo() { return dataBatismo; }
     public void setDataBatismo(LocalDate dataBatismo) { this.dataBatismo = dataBatismo; }
+
+    public String getObservacao() { return observacao; }
+    public void setObservacao(String observacao) { this.observacao = observacao; }
+
 }
