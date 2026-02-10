@@ -1,8 +1,11 @@
 package com.church.appChurch.repository;
 
 import com.church.appChurch.model.Pessoa;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,12 +16,11 @@ public interface PessoaRepository extends ListCrudRepository<Pessoa, Integer> {
 
     public List<Pessoa> findByNome(String nome);
 
+    @Query(value = "SELECT * FROM tb_pessoas WHERE igreja_id = :igrejaId AND status = 'Ativo' ORDER BY id", nativeQuery = true)
     public List<Pessoa> findAllByIgrejaId(Long igrejaId);
 
-    // O Spring cria o SQL sozinho com esse nome
-    boolean existsByCpf(String cpf);
+    @Query(value = "SELECT * FROM tb_pessoas WHERE igreja_id = :igrejaId AND status = 'Visitante' ORDER BY id", nativeQuery = true)
+    List<Pessoa> findAllVisitantesByIgreja(@Param("igrejaId") Long igrejaId);
 
-    // Para a atualização: busca o dono do CPF
-    Optional<Pessoa> findByCpf(String cpf);
 
 }

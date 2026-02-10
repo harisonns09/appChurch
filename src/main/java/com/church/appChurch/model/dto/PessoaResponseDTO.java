@@ -9,7 +9,6 @@ public record PessoaResponseDTO(
         String nome,
         String email,
         String telefone,
-        String cpf,
         LocalDate dataNascimento,
         String ministerio,
         String status,
@@ -23,7 +22,8 @@ public record PessoaResponseDTO(
         String bairro,
         String cidade,
         String estado,
-        LocalDate dataBatismo
+        LocalDate dataBatismo,
+        String observacao
 ) {
     public PessoaResponseDTO(Pessoa pessoa) {
         this(
@@ -32,7 +32,6 @@ public record PessoaResponseDTO(
                 pessoa.getNome(),
                 pessoa.getEmail(),
                 pessoa.getTelefone(),
-                pessoa.getCpf(),
                 pessoa.getDataNascimento(),
                 pessoa.getMinisterio(),
                 pessoa.getStatus(),
@@ -44,7 +43,8 @@ public record PessoaResponseDTO(
                 pessoa.getBairro(),
                 pessoa.getCidade(),
                 pessoa.getEstado(),
-                pessoa.getDataBatismo()
+                pessoa.getDataBatismo(),
+                pessoa.getObservacao()
         );
     }
 }

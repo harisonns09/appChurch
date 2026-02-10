@@ -14,4 +14,5 @@ public interface IPessoaService {
     public PessoaResponseDTO addPessoa(PessoaRequestDTO dto);
     public void deleteById(int id);
     public PessoaResponseDTO update(Integer id,PessoaRequestDTO dto);
+    public List<PessoaResponseDTO> findAllVisitorsByIgrejaId(Long igrejaId);
 }
