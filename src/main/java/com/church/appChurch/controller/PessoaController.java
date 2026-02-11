@@ -58,4 +58,9 @@ public class PessoaController {
     public List<PessoaResponseDTO> getVisitantes(@PathVariable Long igrejaId) {
         return pessoaService.findAllVisitorsByIgrejaId(igrejaId);
     }
+
+    @PostMapping("/public/{igrejaId}/membros")
+    public ResponseEntity<?> addPessoaPublic(@RequestBody @Valid PessoaRequestDTO pessoa) {
+        return ResponseEntity.ok(pessoaService.addPessoa(pessoa));
+    }
 }
