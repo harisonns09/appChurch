@@ -16,7 +16,7 @@ public interface PessoaRepository extends ListCrudRepository<Pessoa, Integer> {
 
     public List<Pessoa> findByNome(String nome);
 
-    @Query(value = "SELECT * FROM tb_pessoas WHERE igreja_id = :igrejaId AND status = 'Ativo' ORDER BY id", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_pessoas WHERE igreja_id = :igrejaId AND status = 'Ativo' ORDER BY nome", nativeQuery = true)
     public List<Pessoa> findAllByIgrejaId(Long igrejaId);
 
     @Query(value = "SELECT * FROM tb_pessoas WHERE igreja_id = :igrejaId AND status = 'Visitante' ORDER BY id", nativeQuery = true)
