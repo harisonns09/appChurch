@@ -80,6 +80,7 @@ public class PessoaServiceImpl implements IPessoaService {
         pessoa.setBairro(dto.bairro());
         pessoa.setCidade(dto.cidade());
         pessoa.setEstado(dto.estado());
+        pessoa.setComplemento(dto.complemento());
         pessoa.setDataBatismo(dto.dataBatismo());
 
         return new PessoaResponseDTO(pessoaRepository.save(pessoa));

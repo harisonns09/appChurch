@@ -47,6 +47,7 @@ public class Pessoa {
     private String bairro;
     private String cidade;
     private String estado;
+    private String complemento;
 
     private String observacao;
 
@@ -79,6 +80,7 @@ public class Pessoa {
         this.bairro = dto.bairro();
         this.cidade = dto.cidade();
         this.estado = dto.estado();
+        this.complemento = dto.complemento();
         this.dataBatismo = dto.dataBatismo();
         if (dto.igrejaId() != null) {
             this.igreja = new Igreja();
@@ -143,4 +145,11 @@ public class Pessoa {
     public String getObservacao() { return observacao; }
     public void setObservacao(String observacao) { this.observacao = observacao; }
 
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
 }
