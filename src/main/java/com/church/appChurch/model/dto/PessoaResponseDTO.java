@@ -22,6 +22,7 @@ public record PessoaResponseDTO(
         String bairro,
         String cidade,
         String estado,
+        String complemento,
         LocalDate dataBatismo,
         String observacao
 ) {
@@ -43,6 +44,7 @@ public record PessoaResponseDTO(
                 pessoa.getBairro(),
                 pessoa.getCidade(),
                 pessoa.getEstado(),
+                pessoa.getComplemento(),
                 pessoa.getDataBatismo(),
                 pessoa.getObservacao()
         );

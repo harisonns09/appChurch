@@ -22,6 +22,7 @@ public record PessoaRequestDTO(
         String numero,
         String bairro,
         String cidade,
+        String complemento,
         String estado,
         LocalDate dataBatismo,
 
