@@ -29,7 +29,8 @@ public record EventoRequestDTO(
 
         String local,
 
-        BigDecimal preco
+        BigDecimal preco,
+        BigDecimal precoPromocional
 
 
 ){

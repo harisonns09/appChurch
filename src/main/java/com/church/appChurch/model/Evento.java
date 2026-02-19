@@ -46,6 +46,9 @@ public class Evento {
     @Column(name = "preco")
     private BigDecimal preco;
 
+    @Column(name = "preco_promocional")
+    private BigDecimal precoPromocional;
+
     @ManyToOne
     @JoinColumn(name = "igreja_id", nullable = false)
     private Igreja igreja;
@@ -143,5 +146,12 @@ public class Evento {
     }
     public void setIgreja(Igreja igreja) {
         this.igreja = igreja;
+    }
+
+    public BigDecimal getPrecoPromocional() {
+        return precoPromocional;
+    }
+    public BigDecimal setPrecoPromocional(BigDecimal precoPromocional){
+        return this.precoPromocional = precoPromocional;
     }
 }

@@ -1,5 +1,6 @@
 package com.church.appChurch.model.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public record InscritoResumoDTO (
@@ -9,6 +10,8 @@ public record InscritoResumoDTO (
         String numero_inscricao,
         String status,
         LocalDateTime data_inscricao,
-        String tipoPagamento
+        String tipoPagamento,
+        String tipoValorPagamento,
+        BigDecimal valorPago
 ){
 }
