@@ -68,8 +68,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.DELETE, "/api/igrejas/*/eventos/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/igrejas/*/ministerios/**").permitAll()
                         .requestMatchers("/api/igrejas/*/ministerios/**").authenticated()
-
-
+                        .requestMatchers("/api/igrejas/*/kids/**").authenticated()
 
                         // Gestão de Membros é totalmente restrita
                         .requestMatchers("/api/igrejas/*/membros/**").authenticated()

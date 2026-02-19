@@ -1,6 +1,8 @@
 package com.church.appChurch.repository;
 
 import com.church.appChurch.model.Pessoa;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -9,8 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface PessoaRepository extends ListCrudRepository<Pessoa, Integer> {
-
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer>, JpaSpecificationExecutor<Pessoa> {
 
     public Pessoa save(Pessoa pessoa);
 
