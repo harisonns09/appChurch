@@ -1,11 +1,15 @@
 package com.church.appChurch.controller;
 
+import com.church.appChurch.model.Pessoa;
 import com.church.appChurch.model.dto.PessoaRequestDTO;
 import com.church.appChurch.model.dto.PessoaResponseDTO;
 import com.church.appChurch.model.dto.VisitanteRequestDTO;
 import com.church.appChurch.service.IPessoaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,5 +66,17 @@ public class PessoaController {
     @PostMapping("/public/{igrejaId}/membros")
     public ResponseEntity<?> addPessoaPublic(@RequestBody @Valid PessoaRequestDTO pessoa) {
         return ResponseEntity.ok(pessoaService.addPessoa(pessoa));
+    }
+
+    @GetMapping("/igrejas/{igrejaId}/membros/paginado")
+    public ResponseEntity<Page<PessoaResponseDTO>> getMembersPaged(
+            @PathVariable Long igrejaId,
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String genero,
+            @RequestParam(required = false) Integer mesAniversario,
+            @PageableDefault(size = 10, sort = "nome") Pageable pageable) {
+
+        Page<PessoaResponseDTO> page = pessoaService.findPaged(igrejaId, nome, genero, mesAniversario, pageable);
+        return ResponseEntity.ok(page);
     }
 }
