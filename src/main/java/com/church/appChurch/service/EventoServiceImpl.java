@@ -151,6 +151,7 @@ public class EventoServiceImpl implements IEventoService {
             inscricao.setStatus(StatusPagamento.PAGO.getStatusPagamento());
             inscricao.setDataPagamento(java.time.LocalDateTime.now());
             inscricao.setComprovante(payload.receiptUrl());
+            inscricao.setValorPago(inscricao.getEvento().getPreco());
 
             inscricaoRepository.save(inscricao);
 

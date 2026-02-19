@@ -6,6 +6,7 @@ import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.google.api.client.util.DateTime;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -49,6 +50,12 @@ public class Inscricao {
 
     @Column(name="tipo_pagamento")
     private String tipoPagamento;
+
+    @Column(name = "tipo_valor_pagamento")
+    private String tipoValorPagamento;
+
+    @Column(name = "valor_pago")
+    private BigDecimal valorPago;
 
     public Inscricao() {
         super();
@@ -159,5 +166,21 @@ public class Inscricao {
 
     public void setTipoPagamento(String tipoPagamento) {
         this.tipoPagamento = tipoPagamento;
+    }
+
+    public String getTipoValorPagamento() {
+        return tipoValorPagamento;
+    }
+
+    public void setTipoValorPagamento(String tipoValorPagamento) {
+        this.tipoValorPagamento = tipoValorPagamento;
+    }
+
+    public BigDecimal getValorPago() {
+        return valorPago;
+    }
+
+    public void setValorPago(BigDecimal valorPago) {
+        this.valorPago = valorPago;
     }
 }

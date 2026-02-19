@@ -2,6 +2,7 @@ package com.church.appChurch.service;
 
 import com.church.appChurch.enums.FormaPagamento;
 import com.church.appChurch.enums.StatusPagamento;
+import com.church.appChurch.enums.TipoValorPagamento;
 import com.church.appChurch.model.Inscricao;
 import com.church.appChurch.model.dto.InscricaoResponseDTO;
 import com.church.appChurch.repository.InscricaoRepository;
@@ -39,7 +40,8 @@ public class InscricaoServiceImpl implements IInscricaoService {
     }
 
     @Override
-    public void confirmarPagamento(String idInscricao) {
+    @Transactional
+    public void confirmarPagamento(String idInscricao, String tipoValor) {
 
         Inscricao inscricao = inscricaoRepository.findByNumero_Inscricao(idInscricao);
 
@@ -47,6 +49,14 @@ public class InscricaoServiceImpl implements IInscricaoService {
             inscricao.setStatus(StatusPagamento.PAGO.getStatusPagamento());
             inscricao.setDataPagamento(LocalDateTime.now());
             inscricao.setTipoPagamento(FormaPagamento.DINHEIRO.getFormaPagamento());
+
+            if(tipoValor.equals("INTEGRAL")){
+                inscricao.setTipoValorPagamento(TipoValorPagamento.INTEGRAL.getTipoValorPagamento());
+                inscricao.setValorPago(inscricao.getEvento().getPreco());
+            }else if(tipoValor.equals("PROMOCIONAL")){
+                inscricao.setTipoValorPagamento(TipoValorPagamento.PROMOCIONAL.getTipoValorPagamento());
+                inscricao.setValorPago(inscricao.getEvento().getPrecoPromocional());
+            }
 
         }
 

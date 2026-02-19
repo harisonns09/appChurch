@@ -21,6 +21,7 @@ public record EventoResponseDTO(
         LocalTime horario,
         String local,
         BigDecimal preco,
+        BigDecimal precoPromocional,
         String descricao,
         String ministerioResponsavel,
         List<InscritoResumoDTO> inscricoes
@@ -33,11 +34,12 @@ public record EventoResponseDTO(
                 evento.getHorario(),
                 evento.getLocal(),
                 evento.getPreco(),
+                evento.getPrecoPromocional(),
                 evento.getDescricao(),
                 evento.getMinisterioResponsavel(),
                 evento.getInscricoes() != null ?
                         evento.getInscricoes().stream()
-                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone(), i.getNumeroInscricao(), i.getStatus(), i.getDataInscricao(), i.getTipoPagamento()))
+                                .map(i -> new InscritoResumoDTO(i.getNome(), i.getEmail(), i.getTelefone(), i.getNumeroInscricao(), i.getStatus(), i.getDataInscricao(), i.getTipoPagamento(), i.getTipoValorPagamento(), i.getValorPago()))
                                 .toList()
                         : Collections.emptyList()
         );

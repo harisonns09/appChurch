@@ -12,5 +12,5 @@ public interface IInscricaoService {
      */
     List<InscricaoResponseDTO> buscarInscricoesPorCpf(String cpf);
 
-    void confirmarPagamento(String idInscricao);
+    void confirmarPagamento(String idInscricao, String tipoValor);
 }
