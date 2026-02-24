@@ -26,6 +26,8 @@ public class TokenService {
         try {
             return Jwts.builder()
                     .setSubject(usuario.getUsername())
+                    .claim("id", usuario.getId())
+                    .claim("role", usuario.getRole())
                     .setIssuer("auth-api")
                     .setExpiration(Date.from(genExpirationDate()))
                     .signWith(getSignInKey(), SignatureAlgorithm.HS256)

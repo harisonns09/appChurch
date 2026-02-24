@@ -49,12 +49,6 @@ public class PessoaServiceImpl implements IPessoaService {
     @Override
     public PessoaResponseDTO addPessoa(PessoaRequestDTO dto) {
 
-//        if(cpf == null || cpf.length() != 11){
-//            throw new IllegalArgumentException("CPF inválido");
-//        }
-//        if(pessoaRepository.existsByCpf(cpf)){
-//            throw new IllegalArgumentException("CPF já cadastrado");
-//        }
 
         Pessoa newPessoa = new Pessoa(dto);
         return new PessoaResponseDTO(pessoaRepository.save(newPessoa));
