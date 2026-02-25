@@ -1,8 +1,11 @@
 package com.church.appChurch.enums;
 
 public enum UserRole {
-    ADMIN("admin"),
-    USER("user");
+    ADMIN("ADMIN"),
+    TESOUREIRO("TESOUREIRO"),
+    LIDER("LIDER"),
+    MEMBRO("MEMBRO"),
+    KIDS("KIDS");
 
     private String role;
 

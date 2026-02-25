@@ -20,17 +20,36 @@ public class Usuario implements UserDetails {
     private String username;
     @Column(nullable = false)
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "igreja_id", nullable = true)
+    private Igreja igreja;
     
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Se for ADMIN, ele também tem permissões normais.
+        // O Spring exige o prefixo "ROLE_"
+        if (this.role == UserRole.ADMIN) {
+            return List.of(
+                    new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER")
+            );
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
+        }
+    }
+
     public Usuario() {
     }
 
-    public Usuario(String username, String password, UserRole role) {
+    public Usuario(String username, String password, UserRole role, Igreja igreja) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.igreja = igreja;
     }
 
     public Long getId() {
@@ -67,10 +86,12 @@ public class Usuario implements UserDetails {
         this.role = role;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    public Igreja getIgreja() {
+        return igreja;
+    }
+
+    public void setIgreja(Igreja igreja) {
+        this.igreja = igreja;
     }
 
     @Override

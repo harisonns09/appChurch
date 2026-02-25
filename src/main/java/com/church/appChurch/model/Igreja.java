@@ -40,6 +40,9 @@ public class Igreja {
     @JsonIgnore
     private List<Ministerio> ministerios = new ArrayList<>();
 
+    @OneToMany(mappedBy = "igreja")
+    private List<Usuario> usuarios;
+
     public Igreja() {
         super();
     }
