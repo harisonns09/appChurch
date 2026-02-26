@@ -1,5 +1,6 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.infra.audit.Loggable;
 import com.church.appChurch.model.Igreja;
 import com.church.appChurch.model.Ministerio;
 import com.church.appChurch.model.dto.MinisterioRequestDTO;
@@ -36,6 +37,7 @@ public class MinisterioServiceImpl implements IMinisterioService {
     }
 
     @Override
+    @Loggable(action = "CRIAR", entity = "MINISTERIO") // <--- SÓ ADICIONAR ISSO
     public MinisterioResponseDTO addMinisterio(Long igrejaId, MinisterioRequestDTO dto) {
         Igreja igreja = igrejaRepository.findById(igrejaId)
                 .orElseThrow(() -> new RuntimeException("Igreja não encontrada com ID: " + igrejaId));
@@ -48,11 +50,13 @@ public class MinisterioServiceImpl implements IMinisterioService {
     }
 
     @Override
+    @Loggable(action = "DELETAR", entity = "MINISTERIO") // <--- SÓ ADICIONAR ISSO
     public void deleteById(Long id) {
         ministerioRepository.deleteById(id);
     }
 
     @Override
+    @Loggable(action = "ALTERAR", entity = "MINISTERIO") // <--- SÓ ADICIONAR ISSO
     public MinisterioResponseDTO updateMinisterio(Long idIgreja, Long idMinisterio, MinisterioRequestDTO dto) {
 
         Ministerio ministerio = ministerioRepository.findById(idMinisterio)

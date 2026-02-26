@@ -1,5 +1,6 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.infra.audit.Loggable;
 import com.church.appChurch.model.dto.PessoaRequestDTO;
 import com.church.appChurch.model.dto.PessoaResponseDTO;
 import com.church.appChurch.model.Pessoa;
@@ -47,6 +48,7 @@ public class PessoaServiceImpl implements IPessoaService {
     }
 
     @Override
+    @Loggable(action = "CRIAR", entity = "MEMBRO") // <--- SÓ ADICIONAR ISSO
     public PessoaResponseDTO addPessoa(PessoaRequestDTO dto) {
 
 
@@ -60,6 +62,7 @@ public class PessoaServiceImpl implements IPessoaService {
     }
 
     @Override
+    @Loggable(action = "ALTERAR", entity = "MEMBRO") // <--- SÓ ADICIONAR ISSO
     public PessoaResponseDTO update(Integer id, PessoaRequestDTO dto) {
         Pessoa pessoa = pessoaRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Pessoa não encontrada"));

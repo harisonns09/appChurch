@@ -1,5 +1,6 @@
 package com.church.appChurch.service;
 
+import com.church.appChurch.infra.audit.Loggable;
 import com.church.appChurch.model.Igreja;
 import com.church.appChurch.model.Usuario;
 import com.church.appChurch.model.dto.UsuarioRequestDTO;
@@ -22,6 +23,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
     IgrejaRepository igrejaRepository;
 
     @Override
+    @Loggable(action = "CRIAR", entity = "USUARIO") // <--- SÓ ADICIONAR ISSO
     public ResponseEntity register(UsuarioRequestDTO data) {
         if(this.usuarioRepository.findByUsername(data.login()) != null) {
             return ResponseEntity.badRequest().body("Usuário já existe");
@@ -44,6 +46,7 @@ public class UsuarioServiceImpl implements IUsuarioService{
     }
 
     @Override
+    @Loggable(action = "ALTERAR", entity = "USUARIO") // <--- SÓ ADICIONAR ISSO
     public UsuarioResponseDTO alterarUsuario(Long userId, UsuarioRequestDTO data) {
         Usuario usuario = usuarioRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado"));
