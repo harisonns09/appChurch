@@ -48,5 +48,12 @@ public class IgrejaController {
     }
 
 
+    @GetMapping("/public/igrejas/{id}")
+    public ResponseEntity<IgrejaResponseDTO> findPublicById(@PathVariable Long id) {
+        return igrejaService.findById(id)
+                .map(igreja -> ResponseEntity.ok(igreja)).orElse(ResponseEntity.notFound().build());
+    }
+
+
 
 }
